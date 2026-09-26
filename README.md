@@ -18,7 +18,7 @@ I like finding the bug nobody reported yet, and then building a tool so nobody h
 | Project | What it is | Stack |
 |---|---|---|
 | [**Windfall - Random Gallery**](https://github.com/SandeeepKiran/Windfall-Random-Gallery) | Random photo and video gallery for Android | Kotlin · Jetpack Compose · Media3 |
-| **Amazon – My Personal UX** | Chrome extension with 24 toggle-able features that clean up Amazon pages | JavaScript · Chrome MV3 |
+| [**My Personal UX for Amazon**](https://github.com/SandeeepKiran/My-Personal-UX-for-Amazon) | Chrome extension with 24 toggle-able features that clean up Amazon pages | JavaScript · Chrome MV3 |
 | **JHora Modern** | Rebuilding a legacy astrology desktop app as an accessible Windows app, checked against an 8,000+ test regression suite | Python · Windows 11 |
 
 ### 🌱 Before QA was my job
