@@ -17,7 +17,7 @@ I like finding the bug nobody reported yet, and then building a tool so nobody h
 
 | Project | What it is | Stack |
 |---|---|---|
-| [**My Random Gallery**](https://github.com/SandeeepKiran/My-Random-Gallery) | Native Android photo and video gallery. I profiled and fixed a UI freeze at 5,000–10,000 images. | Kotlin · Jetpack Compose · Media3 |
+| [**Windfall**](https://github.com/SandeeepKiran/Windfall-Random-Gallery) | Random photo and video gallery for Android. I profiled and fixed a UI freeze at 5,000–10,000 images. | Kotlin · Jetpack Compose · Media3 |
 | **Amazon – My Personal UX** | Chrome extension with 24 toggle-able features that clean up Amazon pages | JavaScript · Chrome MV3 |
 | **JHora Modern** | Rebuilding a legacy astrology desktop app as an accessible Windows app, checked against an 8,000+ test regression suite | Python · Windows 11 |
 
