@@ -1,0 +1,59 @@
+# Redraws every image on the profile (banner, typing line, dividers, stats, streak, snake)
+# and publishes them to the "output" branch, which README.md points at.
+# Runs daily, when main changes (e.g. you edit effects.txt), and on the "Run workflow" button.
+name: Profile cards
+
+on:
+  schedule:
+    - cron: "23 2 * * *"   # daily, 02:23 UTC
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write   # only for the keep-alive step
+
+concurrency:
+  group: profile-cards
+  cancel-in-progress: true
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Draw banner, typing line, dividers and stat cards
+        run: python3 scripts/build_cards.py dist
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Draw the contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-light.svg?color_snake=#0f766e&color_dots=#efe6d2,#cfe9df,#8fd3c1,#3fae9b,#0f766e
+            dist/snake-dark.svg?color_snake=#e3c16f&color_dots=#161b22,#134e4a,#0f766e,#2dd4bf,#99f6e4
+
+      # The output branch holds only generated images. It is replaced on every run (one commit,
+      # no history), so the repo does not grow by a new set of images every day.
+      - name: Publish to the output branch
+        run: |
+          cd dist
+          git init -q -b output
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Redraw profile images"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # GitHub pauses schedules in public repos after 60 days without commits. Re-enabling
+      # the workflow on every run keeps the daily redraw alive.
+      - name: Keep the daily schedule alive
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/profile-cards.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}

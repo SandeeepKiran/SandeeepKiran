@@ -1,39 +1,129 @@
-## Hi, I'm Sandeep 👋
+<!-- Images come from the "output" branch, redrawn daily by .github/workflows/profile-cards.yml.
+     Decoration style: edit effects.txt (ai-drawn | fanart | off). -->
 
-**Senior QA Engineer at SoundHound AI** (formerly Amelia.ai, an IPsoft company), based in Bengaluru.
-I've spent 5+ years testing conversational AI for banking, insurance and healthcare clients. These days I mostly
-build **AI-driven QA**: LLM tester agents that talk to a voice assistant, and LLM-as-judge scoring for their conversations.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/banner-dark.svg">
+    <img alt="Hi, I'm Sandeep Kiran. QA Manager at SoundHound AI." src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/banner-light.svg" width="100%">
+  </picture>
+</p>
 
-I like finding the bug nobody reported yet, and then building a tool so nobody has to find it by hand again.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/typing-dark.svg">
+    <img alt="QA Manager @ SoundHound AI. GenAI & Conversational Voice AI | LLM Evaluation · AI Agents · RAG · Voice AI | sandeeepkiran@gmail.com" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/typing-light.svg" width="80%">
+  </picture>
+</p>
 
-### 🔍 What I work on
+<p align="center">📍 Bengaluru, India &nbsp;·&nbsp; US Citizen &nbsp;·&nbsp; Indian OCI</p>
 
-- **AI regression testing.** I designed *Project Anemo*, where LLM "tester personas" hold real conversations with
-  an AI assistant and each one is scored against its goal.
-- **QA tooling.** I built 10 internal web tools for my team: test-case generators, a bug finder, a transcript-to-test converter and reporting assistants.
-- **QA leadership.** Test strategy, release sign-off, defect triage, mentoring new QA engineers, and our team QA handbook.
+<p align="center">
+  <a href="mailto:sandeeepkiran@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white"></a>
+  <a href="https://t.me/Sandeeep"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white"></a>
+  <a href="https://www.linkedin.com/in/sandeeepkiran/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTIwLjQ1IDIwLjQ1aC0zLjU2di01LjU3YzAtMS4zMy0uMDItMy4wNC0xLjg1LTMuMDQtMS44NSAwLTIuMTQgMS40NS0yLjE0IDIuOTR2NS42N0g5LjM1VjloMy40MXYxLjU2aC4wNWMuNDgtLjkgMS42NC0xLjg1IDMuMzctMS44NSAzLjYgMCA0LjI3IDIuMzcgNC4yNyA1LjQ2djYuMjh6TTUuMzQgNy40M2EyLjA2IDIuMDYgMCAxIDEgMC00LjEzIDIuMDYgMi4wNiAwIDAgMSAwIDQuMTN6TTcuMTIgMjAuNDVIMy41NlY5aDMuNTZ2MTEuNDV6TTIyLjIyIDBIMS43N0MuNzkgMCAwIC43NyAwIDEuNzN2MjAuNTRDMCAyMy4yMy43OSAyNCAxLjc3IDI0aDIwLjQ1Yy45OCAwIDEuNzgtLjc3IDEuNzgtMS43M1YxLjczQzI0IC43NyAyMy4yIDAgMjIuMjIgMHoiLz48L3N2Zz4="></a>
+  <a href="https://sandeeepkiran.github.io/"><img alt="Portfolio" src="https://img.shields.io/badge/Portfolio-b8892b?style=for-the-badge&logo=data:image/png%3Bbase64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6%2FNlyAAAJuElEQVR4nN2aC4xcVRnH%2F%2Ffu7E7ZZ0ttpbSY%2BoBKLVjx0VjUVQQJFAqUrqLgIyJQtGqNiK8EFKNJseJbiASioqCgAQNao0V81AJatEWhPmqXtktdpVq2LfuevebT3yEn13vuzO7e2Qr%2FZLI7M3fO%2Bd7f%2Fzv3RkmSqCDEkg6T1CBpUNJwAWs2SZomqcKalSKELGKNFknzJJ0j6YMIWQTMgB%2BRtFLSfPaJD6XCsaR2SSdLWidpjaR%2FqDhY%2BO2X9G5JX5R0kqQZkkqTEXiisE2fIelUSZdLeg5h9zB%2Fi8CApB%2Fy%2F2yi5x2S5hDuU6ZwSdIzJa2SdJmkMp9b3u6QNKJiMELEbOW9pUqXpCsxgNWLKVG4RdK5kpZLirzPH5F0kFAsCgdQ2F%2FzePZvT%2B1fF4WbKFDnZXy3AQGLhIX1%2FamoMbnfIGmxpOZ6KhxJOlzSewI5tKXA%2FHWoENamuA%2Fb%2F6Pkc6kohWPyJPY2WUxIpWGhPCRpTMUioTb8PeO76ZLeRIplyTsuhc2brZJe4i3YJunVkhoDCk%2BaGARQoT1lYZGkDuS1vv1i5MzULU9h8%2BZCSZ%2BQNJMFrUi8NnB943gLyDgRqsgzSDMnn%2FXsM0O5HedsYFa7kMWmc205R6n2yRCCKmjE6Fko064akPlYiJDzek0KN7DBi3j%2FPBbtqCJUU0F01UfEuiGFS7xM8aP57KiQrHFgEVPuFd77hZ4V87CYPCoScQ3RExHCTuYOftOQtVgWpnnWMjybz0KFw%2BFkCl2RMM8dFyiUroonKPxc7%2FOXZeVxSOEmwsJhAZWvGmU8ik2KLF7NRFhIVpNpFF5vtcbh9KywzlokwqoWEr4BOrk%2Bbxqy3x05EY4bQITQ1mpCGELhOanoMgO0pI2fpXBMgUiHw5ksaPQxBAu7uTnhN140MQdb6wnhXyj8yow8n5f%2BLOTh6RlCHyFpCbx2X2DzEhW9qMLVmtP3HX7FnjYrpzErHW2hvBgOUMTT4LTfyxHgdYxuk%2FVyjGet%2BISwFf5%2BaQ5DS9KLCuFaCKExeGuarAtFzJKbJe3J8cqFocZfIyKK5EmpQuSjR9JXJb2Qa7OwG6Ub0DGOvRD%2BAKcWjYx4jwUWWQm%2FvomCkYVOWtlEmVcjnSFrBHWV%2BWYioCsQqaZoL%2FqZo04xp7rpwpL7DHioKd8v6Q%2BBzUocs1ih%2BFRgiolpC46SjgeOE69IdQqHAYxtSn84p%2B9%2FR9LjRNrbnG4x1dgIg6CSx2Cd9VUEu5hc%2FyQnHVm5%2FCqErlVpx5hMhtdkfN8t6QpJf2J%2FN8WlYZF3D0ZZxOmIdZ7D3EBgoSxy%2BFJ6mvXbO3KEswr4MRT7nKRvp5hYmTRx7KtaPrtx1DrBVanqaoLfJ%2BkzRM372D8EO0jcyzVv57P%2FpG%2BJhf2eewxnwevIE8NZAYHLpMJcrv0N75ewpq2%2FWlKfpF9TG7Kqf4S3TpD0ca%2BtJfzuVpReSdTEVZS9FtkuYnp6cp8oSZLZhKWbjBzuxaJjVN1lyoeF90aiIuH4djH1wRS%2BkTTpSx0UxHj2eML1cK6xfv9jjoxeTogbiwthDFJ0A%2F%2Bboa14%2BrjAFLYQeS9MKo078dwIk8jrq2wqUuFucmjIuyPRijHuTFX3MmG%2FHKOZUXYReQs5wrEUy8PfJP2ItSMiwQ750pFwvilcpqLagVga5qmd5OgOKt5yet%2F8KofhPQjwS7zkePEfU%2Fed3DnZQV6NMKdLJD0rZ%2F1BuICF%2FA%2BICjsrf7OkEzP4%2FJCkt5rCMRu4fA3xVQvJB9jIHcQv4u98yHoHJCBKNf8vS3qQopZmcTFKtjEGrqKH%2B97p57d7aIM9yLKX6Gsi%2Fy9Cjiz0SnqnKSxKtquoISS0BeOu22hFiXfSUU4ds5yIhyKM9DNJ3%2BR3%2FlFuGZ6%2BjDB0rWYntHEbSo5grCEvQmYSbZ3MwnlT2v3WVZzCjQh5XY33bOxH%2F8TC9r9jbEMI%2BmdJj1KprW0tRZhuUucRhG7CKNbens9amzFOL0xqIcq4UW8kdXhXC2evSPqCpNudws5aqwPFayI4gFXXQxO7EHILXaGXPS%2BjIJoi35D0EF5bmUMsxovfYtReX2GXB9dM9M6ch4SwnUb%2BXUNEWI69ABLxJejjCkL2K%2Bx7OV4b9Ej%2FZDBAAdxuUeUrHHlV%2BBLvjuB4F7%2BHPN8N01mBx9ai%2FDq8f7tVTdLg%2Ffz9NAXpLghEG%2F28cyI3zvTf4ngDLNCquHyFRS62IeCaKm3BRzcsayP5e4AQbYS5raUPX0ELukDSE4SsGejr0MV2rtnpebiVPrwEFucKYTVY1NwEGdnnyE4pwyL7Ef5Dkt5C65mTUQH3QOJ%2FJ2kTiw6gqLPiEKRgC8XrNKy9FP5u1%2F8UampGvo3c7vfk2YdMuzCOMcKXItesVMhXSJ2tGLGHtZ5sg1nzaoIg3VDLDo5sF8Bx%2B%2FhuB%2BNXf5WbaIl3C3U2nnsAhXchlBlWjJxZ95YrkJJ%2BDPILz%2FNH03ufQKbtyGjX%2F88pa96APoJ1H8ebmwj5Mb7zPZmFCOvPwCPi%2FShERpCREY%2BungD9HKBtpdcfw2CDrPEo3mzg2qpylVT77cpaH0NyR7wteGAZISsMOOLlYDPrbiOCFjDO%2FRxPHSSchzKUSDCevWpGScVjBtW2jVCb5nlnM%2BHpZtnj8M568rtMVT6F0B2kTVkRKwSxikcDrG1e6nmtDTComd7R61zCvdcb65xcR5LnRT4voqI9HFGgLqa3ziYc1zPRNPMETrtnnC7ycANF8VQM1Utb6StUwKS4Rw9FSNogP53C08%2BrwmeraD%2FD9GtrLWJk%2FBZVNkHhNhyyH7o5%2FP%2BocDMs7Xw8Y7PwX7gNcqzHjf8q6fOcfrrnRUap2ndjnPNQ2vj19YFz8kOucIn5%2BF0QjSxs4oyqlap9NkUqjYQouJLparQoAYvEKEc811Ohra86WIv5PSyui3n5XgYJEeqzvJb1IOfePUUpWw8Ppx9eW80po8jBAZhbhdxuozL38RsX8ruhtt1F5W69FXas6gjOuf3wHmaa%2Bi6zd2fqbuND9PHtdXjITfV66kYwKmstt3Avyk4nDF%2BjTe1lsBjgVFPk9FqKWqGerSfx8DFKwbEDQIczPI%2B6o1iHmwnnLCr5lFA4YYrZQHsRDGoNz4OsgD%2BL49afcH3dEKv%2BcDPt95mdRU%2B2YvZG3lvof5YKX%2FSzmlOusKjKj%2BHphOpsxzsOVxHKdcnbQ6GwqLj3ec%2BHuDzezlxbeEU%2B1AqP4WUjEz421vDA21NSYdGCHoYvizC%2ByzvDetopnDA%2BbiKvr%2BZ0sV7PWU8p0wrBDfdLaUN2ZpY8nRWOvMf0zbNT5l3b%2FN9L2YdLIeGGwAAAAABJRU5ErkJggg%3D%3D"></a>
+</p>
 
-### 🛠️ Side projects
+> [!TIP]
+> A genius known as the Kreideprinz, he is the Chief Alchemist and Captain of the Investigation Team of the Knights of Favonius.
+>
+> <img alt="Venti's card: Anemo, Bow, Mondstadt" src="assets/cards/tip-card.png" width="100%">
 
-| Project | What it is | Stack |
-|---|---|---|
-| [**Windfall - Random Gallery**](https://github.com/SandeeepKiran/Windfall-Random-Gallery) | Random photo and video gallery for Android | Kotlin · Jetpack Compose · Media3 |
-| [**My Personal UX for Amazon**](https://github.com/SandeeepKiran/My-Personal-UX-for-Amazon) | Chrome extension with 24 toggle-able features that clean up Amazon pages | JavaScript · Chrome MV3 |
-| **JHora Modern** | Rebuilding a legacy astrology desktop app as an accessible Windows app, checked against an 8,000+ test regression suite | Python · Windows 11 |
+<p align="center">
+  <img alt="A short animated tour: who I am, then my projects" src="docs/brag-files/brag-all.gif" width="100%">
+</p>
 
-### 🌱 Before QA was my job
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-dark.svg">
+  <img alt="" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-light.svg" width="100%">
+</picture>
 
-- **XDA Developers, Senior Contributor (2019–2023):** reported 400+ bugs in Android custom ROMs, helped 20+ developers
-  run their communities, and wrote a [beginner's guide to custom ROMs](https://forum.xda-developers.com/t/simple-beginners-guide-to-raphael-in-custom-roms.4020543/)
-  for the Redmi K20 Pro.
-- **Research:** [A Comparative Study on Parsing in Natural Language Processing](https://ieeexplore.ieee.org/document/8819687) (IEEE Xplore, 2019).
+## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/what-i-do-dark.png"><img src="assets/icons/what-i-do-light.png" height="28" align="absmiddle" alt=""></picture> What I do
 
-### 🧰 Tools I use
+- **Lead QA** for a conversational AI platform: test strategy, release sign-off and a team of QA engineers.
+- **Build AI-driven QA:** LLM tester agents that talk to voice assistants, and LLM-as-judge scoring for every conversation.
+- **Ship side projects** I want to use myself, and test them like I test at work.
 
-`Python` · `pytest` · `Playwright` · `TypeScript` · `Kotlin` · `Claude Code` · `Claude API` · `MCP` · `Postman` · `Jira` · `Git`
+## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/skills-dark.png"><img src="assets/icons/skills-light.png" height="28" align="absmiddle" alt=""></picture> Skills
 
-### 📫 Find me
+### <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/ai-dark.png"><img src="assets/icons/ai-light.png" height="22" align="absmiddle" alt=""></picture> AI & LLMs
 
-[LinkedIn](https://www.linkedin.com/in/sandeeepkiran/) · kiransandeep9@gmail.com
+<img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-134e4a?style=for-the-badge&logo=claude&logoColor=99f6e4"> <img alt="Claude API" src="https://img.shields.io/badge/Claude%20API-134e4a?style=for-the-badge&logo=anthropic&logoColor=99f6e4"> <img alt="ChatGPT" src="https://img.shields.io/badge/ChatGPT-134e4a?style=for-the-badge"> <img alt="Codex" src="https://img.shields.io/badge/Codex-134e4a?style=for-the-badge"> <img alt="Gemini" src="https://img.shields.io/badge/Gemini-134e4a?style=for-the-badge&logo=googlegemini&logoColor=99f6e4"> <img alt="Cursor" src="https://img.shields.io/badge/Cursor-134e4a?style=for-the-badge&logo=cursor&logoColor=99f6e4"> <img alt="MCP" src="https://img.shields.io/badge/MCP-134e4a?style=for-the-badge&logo=modelcontextprotocol&logoColor=99f6e4"> <img alt="Prompt Engineering" src="https://img.shields.io/badge/Prompt%20Engineering-134e4a?style=for-the-badge"> <img alt="LLM Evaluation" src="https://img.shields.io/badge/LLM%20Evaluation-134e4a?style=for-the-badge"> <img alt="Agentic Workflows" src="https://img.shields.io/badge/Agentic%20Workflows-134e4a?style=for-the-badge">
 
-<sub>Older repos below are from college (2018–2021). I've kept them as a record of where I started.</sub>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/ai-eval-dark.png"><img src="assets/icons/ai-eval-light.png" height="22" align="absmiddle" alt=""></picture> AI Evaluation
+
+<img alt="DeepEval" src="https://img.shields.io/badge/DeepEval-b8892b?style=for-the-badge"> <img alt="LLM-as-Judge" src="https://img.shields.io/badge/LLM--as--Judge-b8892b?style=for-the-badge"> <img alt="RAG" src="https://img.shields.io/badge/RAG-b8892b?style=for-the-badge"> <img alt="Hallucination & Groundedness" src="https://img.shields.io/badge/Hallucination%20%26%20Groundedness-b8892b?style=for-the-badge"> <img alt="Synthetic Test Data" src="https://img.shields.io/badge/Synthetic%20Test%20Data-b8892b?style=for-the-badge"> <img alt="Agents & Chatbots" src="https://img.shields.io/badge/Agents%20%26%20Chatbots-b8892b?style=for-the-badge"> <img alt="AI Safety" src="https://img.shields.io/badge/AI%20Safety-b8892b?style=for-the-badge"> <img alt="Prompt Injection" src="https://img.shields.io/badge/Prompt%20Injection-b8892b?style=for-the-badge">
+
+### <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/testing-dark.png"><img src="assets/icons/testing-light.png" height="22" align="absmiddle" alt=""></picture> Testing
+
+<img alt="Test Strategy" src="https://img.shields.io/badge/Test%20Strategy-0f766e?style=for-the-badge"> <img alt="Regression" src="https://img.shields.io/badge/Regression-0f766e?style=for-the-badge"> <img alt="Smoke" src="https://img.shields.io/badge/Smoke-0f766e?style=for-the-badge"> <img alt="Functional" src="https://img.shields.io/badge/Functional-0f766e?style=for-the-badge"> <img alt="UAT" src="https://img.shields.io/badge/UAT-0f766e?style=for-the-badge"> <img alt="API" src="https://img.shields.io/badge/API-0f766e?style=for-the-badge"> <img alt="NLU & Intent" src="https://img.shields.io/badge/NLU%20%26%20Intent-0f766e?style=for-the-badge"> <img alt="Voice AI (ASR, TTS)" src="https://img.shields.io/badge/Voice%20AI%20%28ASR%2C%20TTS%29-0f766e?style=for-the-badge"> <img alt="pytest" src="https://img.shields.io/badge/pytest-0f766e?style=for-the-badge&logo=pytest&logoColor=ffffff"> <img alt="Playwright" src="https://img.shields.io/badge/Playwright-0f766e?style=for-the-badge"> <img alt="Postman" src="https://img.shields.io/badge/Postman-0f766e?style=for-the-badge&logo=postman&logoColor=ffffff">
+
+### <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/tech-dark.png"><img src="assets/icons/tech-light.png" height="22" align="absmiddle" alt=""></picture> Tech & Tools
+
+<img alt="Python" src="https://img.shields.io/badge/Python-335c81?style=for-the-badge&logo=python&logoColor=ffffff"> <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-335c81?style=for-the-badge&logo=typescript&logoColor=ffffff"> <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-335c81?style=for-the-badge&logo=kotlin&logoColor=ffffff"> <img alt="VBA" src="https://img.shields.io/badge/VBA-335c81?style=for-the-badge"> <img alt="Next.js" src="https://img.shields.io/badge/Next.js-335c81?style=for-the-badge&logo=nextdotjs&logoColor=ffffff"> <img alt="REST" src="https://img.shields.io/badge/REST-335c81?style=for-the-badge"> <img alt="Git" src="https://img.shields.io/badge/Git-335c81?style=for-the-badge&logo=git&logoColor=ffffff"> <img alt="GitLab" src="https://img.shields.io/badge/GitLab-335c81?style=for-the-badge&logo=gitlab&logoColor=ffffff"> <img alt="CI/CD" src="https://img.shields.io/badge/CI%2FCD-335c81?style=for-the-badge&logo=githubactions&logoColor=ffffff"> <img alt="Jira" src="https://img.shields.io/badge/Jira-335c81?style=for-the-badge&logo=jira&logoColor=ffffff"> <img alt="Confluence" src="https://img.shields.io/badge/Confluence-335c81?style=for-the-badge&logo=confluence&logoColor=ffffff"> <img alt="Excel" src="https://img.shields.io/badge/Excel-335c81?style=for-the-badge"> <img alt="KPI & KRA Reporting" src="https://img.shields.io/badge/KPI%20%26%20KRA%20Reporting-335c81?style=for-the-badge">
+
+### <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/domains-dark.png"><img src="assets/icons/domains-light.png" height="22" align="absmiddle" alt=""></picture> Domains
+
+<img alt="Banking" src="https://img.shields.io/badge/Banking-d9b25f?style=for-the-badge"> <img alt="Insurance" src="https://img.shields.io/badge/Insurance-d9b25f?style=for-the-badge"> <img alt="Healthcare" src="https://img.shields.io/badge/Healthcare-d9b25f?style=for-the-badge"> <img alt="ITSD" src="https://img.shields.io/badge/ITSD-d9b25f?style=for-the-badge"> <img alt="E-commerce" src="https://img.shields.io/badge/E--commerce-d9b25f?style=for-the-badge"> <img alt="Telecom" src="https://img.shields.io/badge/Telecom-d9b25f?style=for-the-badge"> <img alt="EdTech" src="https://img.shields.io/badge/EdTech-d9b25f?style=for-the-badge"> <img alt="Retail" src="https://img.shields.io/badge/Retail-d9b25f?style=for-the-badge"> <img alt="Travel" src="https://img.shields.io/badge/Travel-d9b25f?style=for-the-badge">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-dark.svg">
+  <img alt="" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-light.svg" width="100%">
+</picture>
+
+## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/projects-dark.png"><img src="assets/icons/projects-light.png" height="28" align="absmiddle" alt=""></picture> Projects
+
+| Project | What it is | Stack | Links |
+|---|---|---|---|
+| **Kitsune Labs** | QA tools in the browser: test generation, bug finding and reports | TypeScript · Vite · LLM APIs | [![Try it live](https://img.shields.io/badge/▶_Try_it_live-b8892b?style=flat-square)](https://sandeeepkiran.github.io/kitsune-labs/) [![Source](https://img.shields.io/badge/Source-0f766e?style=flat-square&logo=github)](https://github.com/SandeeepKiran/kitsune-labs) |
+| **Windfall Gallery** | Android gallery that shows your photos and videos in random order | Kotlin · Jetpack Compose · Media3 | [![Download APK](https://img.shields.io/badge/⬇_Download_APK-b8892b?style=flat-square&logo=android&logoColor=white)](https://github.com/SandeeepKiran/Windfall-Random-Gallery/releases/latest) [![Source](https://img.shields.io/badge/Source-0f766e?style=flat-square&logo=github)](https://github.com/SandeeepKiran/Windfall-Random-Gallery) |
+| **My Personal UX for Amazon** | Browser extension that cleans up Amazon pages | JavaScript · MV3 · Chrome, Edge, Firefox | [![Get the extension](https://img.shields.io/badge/⬇_Get_the_extension-b8892b?style=flat-square)](https://github.com/SandeeepKiran/My-Personal-UX-for-Amazon/releases/latest) [![Source](https://img.shields.io/badge/Source-0f766e?style=flat-square&logo=github)](https://github.com/SandeeepKiran/My-Personal-UX-for-Amazon) |
+| **Leyline Autofill** | AI autofill for job application forms. You review, it never submits | JavaScript · MV3 · GPT and Claude APIs | [![Get the extension](https://img.shields.io/badge/⬇_Get_the_extension-b8892b?style=flat-square)](https://github.com/SandeeepKiran/Leyline-Autofill/releases/latest) [![Source](https://img.shields.io/badge/Source-0f766e?style=flat-square&logo=github)](https://github.com/SandeeepKiran/Leyline-Autofill) |
+| **Sandstorm Secure** | Phone security and device management | Python · FastAPI · Android Management API | [![Watch demo](https://img.shields.io/badge/▶_Watch_demo-b8892b?style=flat-square)](https://github.com/SandeeepKiran/Sandstorm-Secure#readme) [![Source](https://img.shields.io/badge/Source-0f766e?style=flat-square&logo=github)](https://github.com/SandeeepKiran/Sandstorm-Secure) |
+| **Internal QA Tool** | At work: AI regression platform where LLM testers talk to a bot and get scored | Next.js · TypeScript · Claude API | <sub>Private</sub> |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-dark.svg">
+  <img alt="" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/divider-light.svg" width="100%">
+</picture>
+
+## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/stats-dark.png"><img src="assets/icons/stats-light.png" height="28" align="absmiddle" alt=""></picture> The Stats
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/stats-dark.svg">
+    <img alt="GitHub stats" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/stats-light.svg" width="49%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/activity-dark.svg">
+    <img alt="Contributions in the last year" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/activity-light.svg" width="49%">
+  </picture>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/streak-dark.svg">
+    <img alt="Contribution streaks" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/streak-light.svg" width="98%">
+  </picture>
+</p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/snake-dark.svg">
+    <img alt="A snake eating my contribution graph" src="https://raw.githubusercontent.com/SandeeepKiran/SandeeepKiran/output/snake-light.svg" width="98%">
+  </picture>
+</p>
+
+<details>
+<summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/more-dark.png"><img src="assets/icons/more-light.png" height="24" align="absmiddle" alt=""></picture> <b>More about me</b></summary>
+<br>
+
+<img alt="XDA Developers, Senior Contributor (2019–2023): reported 400+ bugs in Android custom ROMs, helped 20+ developers run their communities, wrote a beginner's guide to custom ROMs for the Redmi K20 Pro. Research: A Comparative Study on Parsing in Natural Language Processing (IEEE Xplore, 2019). Older repos are from college (2018–2021)." src="assets/cards/about-card.png" width="100%">
+
+<p align="center">
+  <a href="https://forum.xda-developers.com/t/simple-beginners-guide-to-raphael-in-custom-roms.4020543/"><img alt="XDA beginner's guide" src="https://img.shields.io/badge/XDA_beginner's_guide-EA7100?style=for-the-badge&logo=xdadevelopers&logoColor=white"></a>
+  <a href="https://ieeexplore.ieee.org/document/8819687"><img alt="IEEE paper" src="https://img.shields.io/badge/IEEE_paper-00629B?style=for-the-badge&logo=ieee&logoColor=white"></a>
+  <a href="https://sandeeepkiran.github.io/"><img alt="Portfolio" src="https://img.shields.io/badge/Portfolio-b8892b?style=for-the-badge&logo=data:image/png%3Bbase64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6%2FNlyAAAJuElEQVR4nN2aC4xcVRnH%2F%2Ffu7E7ZZ0ttpbSY%2BoBKLVjx0VjUVQQJFAqUrqLgIyJQtGqNiK8EFKNJseJbiASioqCgAQNao0V81AJatEWhPmqXtktdpVq2LfuevebT3yEn13vuzO7e2Qr%2FZLI7M3fO%2Bd7f%2Fzv3RkmSqCDEkg6T1CBpUNJwAWs2SZomqcKalSKELGKNFknzJJ0j6YMIWQTMgB%2BRtFLSfPaJD6XCsaR2SSdLWidpjaR%2FqDhY%2BO2X9G5JX5R0kqQZkkqTEXiisE2fIelUSZdLeg5h9zB%2Fi8CApB%2Fy%2F2yi5x2S5hDuU6ZwSdIzJa2SdJmkMp9b3u6QNKJiMELEbOW9pUqXpCsxgNWLKVG4RdK5kpZLirzPH5F0kFAsCgdQ2F%2FzePZvT%2B1fF4WbKFDnZXy3AQGLhIX1%2FamoMbnfIGmxpOZ6KhxJOlzSewI5tKXA%2FHWoENamuA%2Fb%2F6Pkc6kohWPyJPY2WUxIpWGhPCRpTMUioTb8PeO76ZLeRIplyTsuhc2brZJe4i3YJunVkhoDCk%2BaGARQoT1lYZGkDuS1vv1i5MzULU9h8%2BZCSZ%2BQNJMFrUi8NnB943gLyDgRqsgzSDMnn%2FXsM0O5HedsYFa7kMWmc205R6n2yRCCKmjE6Fko064akPlYiJDzek0KN7DBi3j%2FPBbtqCJUU0F01UfEuiGFS7xM8aP57KiQrHFgEVPuFd77hZ4V87CYPCoScQ3RExHCTuYOftOQtVgWpnnWMjybz0KFw%2BFkCl2RMM8dFyiUroonKPxc7%2FOXZeVxSOEmwsJhAZWvGmU8ik2KLF7NRFhIVpNpFF5vtcbh9KywzlokwqoWEr4BOrk%2Bbxqy3x05EY4bQITQ1mpCGELhOanoMgO0pI2fpXBMgUiHw5ksaPQxBAu7uTnhN140MQdb6wnhXyj8yow8n5f%2BLOTh6RlCHyFpCbx2X2DzEhW9qMLVmtP3HX7FnjYrpzErHW2hvBgOUMTT4LTfyxHgdYxuk%2FVyjGet%2BISwFf5%2BaQ5DS9KLCuFaCKExeGuarAtFzJKbJe3J8cqFocZfIyKK5EmpQuSjR9JXJb2Qa7OwG6Ub0DGOvRD%2BAKcWjYx4jwUWWQm%2FvomCkYVOWtlEmVcjnSFrBHWV%2BWYioCsQqaZoL%2FqZo04xp7rpwpL7DHioKd8v6Q%2BBzUocs1ih%2BFRgiolpC46SjgeOE69IdQqHAYxtSn84p%2B9%2FR9LjRNrbnG4x1dgIg6CSx2Cd9VUEu5hc%2FyQnHVm5%2FCqErlVpx5hMhtdkfN8t6QpJf2J%2FN8WlYZF3D0ZZxOmIdZ7D3EBgoSxy%2BFJ6mvXbO3KEswr4MRT7nKRvp5hYmTRx7KtaPrtx1DrBVanqaoLfJ%2BkzRM372D8EO0jcyzVv57P%2FpG%2BJhf2eewxnwevIE8NZAYHLpMJcrv0N75ewpq2%2FWlKfpF9TG7Kqf4S3TpD0ca%2BtJfzuVpReSdTEVZS9FtkuYnp6cp8oSZLZhKWbjBzuxaJjVN1lyoeF90aiIuH4djH1wRS%2BkTTpSx0UxHj2eML1cK6xfv9jjoxeTogbiwthDFJ0A%2F%2Bboa14%2BrjAFLYQeS9MKo078dwIk8jrq2wqUuFucmjIuyPRijHuTFX3MmG%2FHKOZUXYReQs5wrEUy8PfJP2ItSMiwQ750pFwvilcpqLagVga5qmd5OgOKt5yet%2F8KofhPQjwS7zkePEfU%2Fed3DnZQV6NMKdLJD0rZ%2F1BuICF%2FA%2BICjsrf7OkEzP4%2FJCkt5rCMRu4fA3xVQvJB9jIHcQv4u98yHoHJCBKNf8vS3qQopZmcTFKtjEGrqKH%2B97p57d7aIM9yLKX6Gsi%2Fy9Cjiz0SnqnKSxKtquoISS0BeOu22hFiXfSUU4ds5yIhyKM9DNJ3%2BR3%2FlFuGZ6%2BjDB0rWYntHEbSo5grCEvQmYSbZ3MwnlT2v3WVZzCjQh5XY33bOxH%2F8TC9r9jbEMI%2BmdJj1KprW0tRZhuUucRhG7CKNbens9amzFOL0xqIcq4UW8kdXhXC2evSPqCpNudws5aqwPFayI4gFXXQxO7EHILXaGXPS%2BjIJoi35D0EF5bmUMsxovfYtReX2GXB9dM9M6ch4SwnUb%2BXUNEWI69ABLxJejjCkL2K%2Bx7OV4b9Ej%2FZDBAAdxuUeUrHHlV%2BBLvjuB4F7%2BHPN8N01mBx9ai%2FDq8f7tVTdLg%2Ffz9NAXpLghEG%2F28cyI3zvTf4ngDLNCquHyFRS62IeCaKm3BRzcsayP5e4AQbYS5raUPX0ELukDSE4SsGejr0MV2rtnpebiVPrwEFucKYTVY1NwEGdnnyE4pwyL7Ef5Dkt5C65mTUQH3QOJ%2FJ2kTiw6gqLPiEKRgC8XrNKy9FP5u1%2F8UampGvo3c7vfk2YdMuzCOMcKXItesVMhXSJ2tGLGHtZ5sg1nzaoIg3VDLDo5sF8Bx%2B%2FhuB%2BNXf5WbaIl3C3U2nnsAhXchlBlWjJxZ95YrkJJ%2BDPILz%2FNH03ufQKbtyGjX%2F88pa96APoJ1H8ebmwj5Mb7zPZmFCOvPwCPi%2FShERpCREY%2BungD9HKBtpdcfw2CDrPEo3mzg2qpylVT77cpaH0NyR7wteGAZISsMOOLlYDPrbiOCFjDO%2FRxPHSSchzKUSDCevWpGScVjBtW2jVCb5nlnM%2BHpZtnj8M568rtMVT6F0B2kTVkRKwSxikcDrG1e6nmtDTComd7R61zCvdcb65xcR5LnRT4voqI9HFGgLqa3ziYc1zPRNPMETrtnnC7ycANF8VQM1Utb6StUwKS4Rw9FSNogP53C08%2BrwmeraD%2FD9GtrLWJk%2FBZVNkHhNhyyH7o5%2FP%2BocDMs7Xw8Y7PwX7gNcqzHjf8q6fOcfrrnRUap2ndjnPNQ2vj19YFz8kOucIn5%2BF0QjSxs4oyqlap9NkUqjYQouJLparQoAYvEKEc811Ohra86WIv5PSyui3n5XgYJEeqzvJb1IOfePUUpWw8Ppx9eW80po8jBAZhbhdxuozL38RsX8ruhtt1F5W69FXas6gjOuf3wHmaa%2Bi6zd2fqbuND9PHtdXjITfV66kYwKmstt3Avyk4nDF%2BjTe1lsBjgVFPk9FqKWqGerSfx8DFKwbEDQIczPI%2B6o1iHmwnnLCr5lFA4YYrZQHsRDGoNz4OsgD%2BL49afcH3dEKv%2BcDPt95mdRU%2B2YvZG3lvof5YKX%2FSzmlOusKjKj%2BHphOpsxzsOVxHKdcnbQ6GwqLj3ec%2BHuDzezlxbeEU%2B1AqP4WUjEz421vDA21NSYdGCHoYvizC%2ByzvDetopnDA%2BbiKvr%2BZ0sV7PWU8p0wrBDfdLaUN2ZpY8nRWOvMf0zbNT5l3b%2FN9L2YdLIeGGwAAAAABJRU5ErkJggg%3D%3D"></a>
+</p>
+
+</details>

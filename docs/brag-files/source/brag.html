@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sandeep Kiran brag</title>
+<!-- Every frame is a pure function of time: render(t) sets all styles. capture.py steps t. -->
+<style>
+  :root {
+    --ivory: #fdfaf2; --teal: #0f766e; --deep: #134e4a; --mint: #5cc3b0;
+    --gold: #b8892b; --gold2: #d9b25f; --ink: #1d2b29; --muted: #4c5e58;
+    --electro: #7c4fc9; --hydro: #1680ba; --pyro: #ce5818;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1280px; height: 720px; overflow: hidden; }
+  body { font-family: "Segoe UI", sans-serif; color: var(--ink); position: relative; background: #e8efe6; }
+  /* Mondstadt city as the backdrop, softened so text stays readable. */
+  #bg { position: absolute; inset: -20px; background: url("img/mondstadt.jpg") center/cover; filter: blur(3px) saturate(1.05); }
+  #veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(253,250,242,.70), rgba(253,250,242,.58) 55%, rgba(253,250,242,.72)); }
+  .scene { position: absolute; inset: 0; opacity: 0; }
+  #seeds { position: absolute; inset: 0; pointer-events: none; }
+  .center { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+  .big { font-size: 62px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; text-shadow: 0 2px 18px rgba(253,250,242,.9); }
+  .gold { color: var(--gold); }
+  .name { font-size: 92px; font-weight: 800; color: var(--teal); letter-spacing: -1.5px; text-shadow: 0 2px 20px rgba(253,250,242,.9); }
+  .role { font-size: 34px; font-weight: 700; color: var(--ink); margin-top: 4px; }
+  .rule { height: 3px; width: 420px; background: linear-gradient(90deg, transparent, var(--gold2), transparent); margin: 22px auto 26px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; max-width: 1000px; }
+  .pill { padding: 12px 22px; border-radius: 999px; font-size: 24px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #fff; box-shadow: 0 6px 18px rgba(19,78,74,.2); }
+  .caption { position: absolute; top: 56px; left: 0; right: 0; text-align: center; font-size: 38px; font-weight: 700; text-shadow: 0 2px 14px rgba(253,250,242,.95); }
+  .chat { position: absolute; left: 190px; right: 190px; top: 180px; display: flex; flex-direction: column; gap: 22px; }
+  .bubble { max-width: 640px; padding: 20px 26px; border-radius: 24px; font-size: 28px; box-shadow: 0 10px 30px rgba(29,43,41,.18); }
+  .who { font-size: 16px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; opacity: .85; }
+  .tester { align-self: flex-start; background: #fff; border: 2px solid var(--electro); border-bottom-left-radius: 6px; }
+  .bot { align-self: flex-end; background: var(--deep); color: #eaf7f3; border-bottom-right-radius: 6px; }
+  .judge { align-self: center; padding: 14px 28px; border-radius: 16px; background: #fffaf0; border: 3px solid var(--gold); color: var(--gold); font-size: 30px; font-weight: 800; }
+  .grid { position: absolute; left: 70px; right: 70px; top: 112px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tile { height: 236px; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 14px 34px rgba(19,78,74,.28), 0 0 0 3px rgba(184,137,43,.4); position: relative; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .tile.phone img { object-fit: contain; background: linear-gradient(135deg, #0f766e, #134e4a); }
+  .tile span { position: absolute; left: 10px; bottom: 10px; background: rgba(253,250,242,.95); color: var(--ink); font-weight: 800; font-size: 17px; padding: 5px 12px; border-radius: 999px; }
+  .gridtitle { position: absolute; top: 34px; left: 0; right: 0; text-align: center; font-size: 44px; font-weight: 800; text-shadow: 0 2px 16px rgba(253,250,242,.95); }
+  .proj { position: absolute; inset: 0; display: grid; grid-template-columns: 470px 1fr; align-items: center; gap: 30px; padding: 0 70px; }
+  .panel { background: rgba(253,250,242,.86); border-radius: 22px; padding: 26px 28px; box-shadow: 0 10px 30px rgba(19,78,74,.15); }
+  .kicker { font-size: 18px; font-weight: 800; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  .ptitle { font-size: 58px; font-weight: 800; color: var(--teal); line-height: 1.05; margin: 8px 0 14px; letter-spacing: -1px; }
+  .pline { font-size: 28px; font-weight: 600; line-height: 1.25; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip { font-size: 16px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 2px solid var(--gold2); color: var(--deep); background: #fffaf0; }
+  .shot { justify-self: center; max-height: 560px; max-width: 100%; border-radius: 18px; box-shadow: 0 24px 60px rgba(19,78,74,.32), 0 0 0 3px rgba(184,137,43,.4); }
+  .url { font-size: 54px; font-weight: 800; color: var(--teal); margin-top: 22px; text-shadow: 0 2px 16px rgba(253,250,242,.95); }
+  .mail { font-size: 30px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div id="bg"></div><div id="veil"></div>
+<svg id="seeds" viewBox="0 0 1280 720"></svg>
+
+<!-- HOOK: every page at once -->
+<section class="scene" id="s0">
+  <div class="gridtitle">Everything I've built, <span class="gold">at a glance</span></div>
+  <div class="grid">
+    <div class="tile"><img src="img/kitsune-new.png" alt=""><span>Kitsune Labs</span></div>
+    <div class="tile phone"><img src="img/windfall-phone.png" alt=""><span>Windfall Gallery</span></div>
+    <div class="tile"><img src="img/amazon.jpg" alt=""><span>My Personal UX for Amazon</span></div>
+    <div class="tile"><img src="img/leyline.png" alt=""><span>Leyline Autofill</span></div>
+    <div class="tile"><img src="img/sandstorm-ui.png" alt="" style="object-position:left top"><span>Sandstorm Secure</span></div>
+    <div class="tile"><img src="img/portfolio.png" alt=""><span>Portfolio</span></div>
+  </div>
+</section>
+
+<!-- ME -->
+<section class="scene" id="s2"><div class="center">
+  <div class="name">Sandeep Kiran</div>
+  <div class="role">QA Manager @ SoundHound AI</div>
+  <div class="rule"></div>
+  <div class="pills">
+    <span class="pill" style="background:#b8892b">GenAI</span><span class="pill" style="background:#134e4a">Conversational Voice AI</span>
+    <span class="pill" style="background:#7c4fc9">LLM Evaluation</span><span class="pill" style="background:#ce5818">AI Agents</span>
+    <span class="pill" style="background:#1680ba">RAG</span><span class="pill" style="background:#0f766e">Voice AI</span>
+  </div>
+</div></section>
+
+<section class="scene" id="s3">
+  <div class="caption">LLM testers talk to the bot.<br><span class="gold">An LLM judge scores every chat.</span></div>
+  <div class="chat">
+    <div class="bubble tester"><div class="who" style="color:#7c4fc9">LLM tester</div><span id="b1t">Hi, I need to reset my card PIN.</span></div>
+    <div class="bubble bot" id="b2"><div class="who">Bot</div><span id="b2t">Sure. First, let me verify it's you.</span></div>
+    <div class="judge" id="b3">✦ Judge: goal met ✓</div>
+  </div>
+</section>
+
+<section class="scene" id="s4"><div class="center">
+  <div class="big">Built with freedom,</div>
+  <div class="big gold">privacy and knowledge in mind.</div>
+</div></section>
+
+<!-- PROJECTS -->
+<section class="scene" id="p1"><div class="proj">
+  <div class="panel"><div class="kicker">Try it live</div><div class="ptitle">Kitsune Labs</div>
+    <div class="pline">Nine browser tools for testing chatbots and voice bots.</div>
+    <div class="chips"><span class="chip">TypeScript</span><span class="chip">Vite</span><span class="chip">LLM APIs</span></div></div>
+  <img class="shot" src="img/kitsune-new.png" alt="">
+</div></section>
+
+<section class="scene" id="p2"><div class="proj">
+  <div class="panel"><div class="kicker">Android app</div><div class="ptitle">Windfall Gallery</div>
+    <div class="pline">Your photos, shuffled.</div>
+    <div class="chips"><span class="chip">Kotlin</span><span class="chip">Jetpack Compose</span><span class="chip">Media3</span></div></div>
+  <img class="shot" src="img/windfall-phone.png" alt="" style="max-height:600px">
+</div></section>
+
+<section class="scene" id="p3"><div class="proj">
+  <div class="panel"><div class="kicker">Browser extension</div><div class="ptitle">My Personal UX for Amazon</div>
+    <div class="pline">See the real price.</div>
+    <div class="chips"><span class="chip">MV3</span><span class="chip">Chrome</span><span class="chip">Edge</span><span class="chip">Firefox</span></div></div>
+  <img class="shot" src="img/amazon.jpg" alt="">
+</div></section>
+
+<section class="scene" id="p4"><div class="proj">
+  <div class="panel"><div class="kicker">Browser extension</div><div class="ptitle">Leyline Autofill</div>
+    <div class="pline">AI fills job forms. You review. It never submits.</div>
+    <div class="chips"><span class="chip">GPT</span><span class="chip">Claude</span><span class="chip">MV3</span></div></div>
+  <img class="shot" src="img/leyline.png" alt="">
+</div></section>
+
+<section class="scene" id="p5"><div class="proj">
+  <div class="panel"><div class="kicker">Device security</div><div class="ptitle">Sandstorm Secure</div>
+    <div class="pline">Phone lockdown on Google's Android Management API.</div>
+    <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">AMAPI</span></div></div>
+  <img class="shot" src="img/sandstorm-ui.png" alt="">
+</div></section>
+
+<!-- OUTRO: Albedo's burst -->
+<section class="scene" id="s9"><div class="center">
+  <svg id="glyph" width="210" height="210" viewBox="-105 -105 210 210"></svg>
+  <div class="url">sandeeepkiran.github.io</div>
+  <div class="mail">sandeeepkiran@gmail.com</div>
+</div></section>
+
+<script>
+  // Timeline (seconds). The three GIF cuts reuse these numbers.
+  var SCENES = [
+    ["s0", 0.0, 3.0], ["s2", 3.0, 5.9], ["s3", 5.9, 8.9], ["s4", 8.9, 11.5],
+    ["p1", 11.5, 13.8], ["p2", 13.8, 16.1], ["p3", 16.1, 18.4], ["p4", 18.4, 20.7], ["p5", 20.7, 23.0],
+    ["s9", 23.0, 25.6],
+  ];
+  window.TOTAL = 25.6;
+  window.CUTS = { all: [[0, 25.6]], me: [[3.0, 8.9], [23.0, 25.6]], projects: [[0, 3.0], [8.9, 25.6]] };
+  var START = {}; SCENES.forEach(function (s) { START[s[0]] = s[1]; });
+
+  var clamp = function (v) { return Math.max(0, Math.min(1, v)); };
+  var ease = function (v) { v = clamp(v); return 1 - Math.pow(1 - v, 3); };
+  var prog = function (t, a, b) { return ease((t - a) / (b - a)); };
+  var $ = function (id) { return document.getElementById(id); };
+  function rnd(i) { var x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+  // Real-looking dandelion seeds: slim brown achene, hair-thin beak, umbrella of fine curved bristles.
+  function seedMarkup(k) {
+    var top = -26, under = "", over = "";
+    for (var i = 0; i < 30; i++) {
+      var a = (8 + 164 * i / 29 + (rnd(k * 31 + i) - 0.5) * 6) * Math.PI / 180;
+      var len = (12 + rnd(k * 17 + i) * 4) * (0.75 + 0.25 * Math.sin(a));
+      var ex = len * Math.cos(a), ey = top - len * Math.sin(a) * 0.62;
+      var cx = ex * 0.55, cy = top - len * Math.sin(a) * 0.62 * 0.4 - 1.5;
+      var d = "M0 " + top + " Q" + cx.toFixed(1) + " " + cy.toFixed(1) + " " + ex.toFixed(1) + " " + ey.toFixed(1);
+      under += '<path d="' + d + '"/>'; over += '<path d="' + d + '"/>';
+    }
+    return '<g fill="none" stroke="#6f8079" stroke-width="1" stroke-linecap="round" opacity=".3">' + under + '</g>' +
+      '<g fill="none" stroke="#ffffff" stroke-width=".5" stroke-linecap="round" opacity=".95">' + over + '</g>' +
+      '<line x1="0" y1="-5" x2="0" y2="' + top + '" stroke="#7a8f88" stroke-width=".55"/>' +
+      '<path d="M0 -6 C1.4 -4 1.5 1 0 4 C-1.5 1 -1.4 -4 0 -6 Z" fill="#8b6a3e"/>' +
+      '<circle cx="0" cy="' + top + '" r=".9" fill="#7a8f88"/>';
+  }
+  var seedSvg = $("seeds"), seedEls = [];
+  for (var i = 0; i < 14; i++) {
+    var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.innerHTML = seedMarkup(i);
+    seedSvg.appendChild(g); seedEls.push(g);
+  }
+  function drawSeeds(t) {
+    seedEls.forEach(function (g, i) {
+      var speed = 0.03 + rnd(i) * 0.025, phase = rnd(i + 50);
+      var u = (phase + t * speed) % 1;
+      var x = -60 + u * 1400;
+      var y = 90 + rnd(i + 99) * 520 + Math.sin(u * 6.28 * 1.3 + i) * 34 - u * 70;
+      var s = 1.2 + rnd(i + 7) * 1.0;
+      var rot = Math.sin(t * 0.9 + i) * 18 + 12;   // leans with the wind
+      var fade = Math.min(1, u * 8, (1 - u) * 8);
+      g.setAttribute("transform", "translate(" + x.toFixed(1) + " " + y.toFixed(1) + ") rotate(" + rot.toFixed(1) + ") scale(" + s.toFixed(2) + ")");
+      g.setAttribute("opacity", fade.toFixed(2));
+    });
+  }
+
+  // Outro: gold ring draws itself, Albedo's burst icon blooms in, Cecilia flowers open around it.
+  function drawGlyph(t) {
+    var a = START.s9, p = prog(t, a + 0.1, a + 1.0), circ = 2 * Math.PI * 92, flowers = "";
+    for (var k = 0; k < 8; k++) {
+      var fa = (k * 45 + 22.5) * Math.PI / 180, fp = prog(t, a + 0.6 + k * 0.07, a + 1.2 + k * 0.07), petals = "";
+      for (var q = 0; q < 360; q += 72) petals += '<ellipse cx="0" cy="-6" rx="3.6" ry="6" transform="rotate(' + q + ')" fill="#fff" stroke="#b8892b" stroke-width=".8"/>';
+      flowers += '<g transform="translate(' + (98 * Math.cos(fa)).toFixed(1) + ' ' + (98 * Math.sin(fa)).toFixed(1) + ') scale(' + fp.toFixed(2) + ')">' + petals + '<circle r="2.6" fill="#d9b25f"/></g>';
+    }
+    var bp = prog(t, a + 0.35, a + 1.1);
+    $("glyph").innerHTML =
+      '<circle r="92" fill="rgba(253,250,242,.75)" stroke="#b8892b" stroke-width="2.5" stroke-dasharray="' + circ.toFixed(0) + '" stroke-dashoffset="' + (circ * (1 - p)).toFixed(0) + '"/>' +
+      '<g transform="scale(' + (0.6 + 0.4 * bp).toFixed(3) + ')" opacity="' + bp.toFixed(2) + '"><image href="img/albedo-burst.png" x="-62" y="-62" width="124" height="124"/></g>' + flowers;
+  }
+
+  function typeIn(el, full, t, a, b) {
+    var n = Math.round(full.length * clamp((t - a) / (b - a)));
+    el.textContent = full.slice(0, n) || "​";
+  }
+
+  window.render = function (t) {
+    drawSeeds(t);
+    SCENES.forEach(function (s) {
+      var el = $(s[0]), a = s[1], b = s[2];
+      var o = Math.min(prog(t, a, a + 0.3), 1 - prog(t, b - 0.25, b));
+      if (t < a || t >= b) o = 0;
+      if (s[0] === "s0" && t < 0.3) o = 1;
+      if (s[0] === "s9" && t >= b - 0.25) o = 1;
+      el.style.opacity = o.toFixed(3);
+      if (s[0] !== "s0") el.style.transform = "translateY(" + ((1 - prog(t, a, a + 0.45)) * 18).toFixed(1) + "px)";
+    });
+    // Hook: the six pages pop into the grid one by one, then lift away together.
+    document.querySelectorAll("#s0 .tile").forEach(function (tile, i) {
+      var v = prog(t, 0.05 + i * 0.14, 0.45 + i * 0.14), out = prog(t, 2.55, 3.0);
+      tile.style.opacity = (v * (1 - out)).toFixed(2);
+      tile.style.transform = "translateY(" + ((1 - v) * 40 - out * 30).toFixed(1) + "px) scale(" + (0.9 + 0.1 * v + out * 0.06).toFixed(3) + ")";
+    });
+    $("s0").querySelector(".gridtitle").style.opacity = prog(t, 0.5, 0.9).toFixed(2);
+    // Pills pop in one by one.
+    document.querySelectorAll("#s2 .pill").forEach(function (p, i) {
+      var v = prog(t, START.s2 + 0.4 + i * 0.18, START.s2 + 0.75 + i * 0.18);
+      p.style.opacity = v.toFixed(2);
+      p.style.transform = "scale(" + (0.6 + 0.4 * v).toFixed(3) + ")";
+    });
+    // Chat: tester types, bot answers, judge stamps.
+    var c = START.s3;
+    typeIn($("b1t"), "Hi, I need to reset my card PIN.", t, c + 0.4, c + 1.2);
+    $("b2").style.opacity = prog(t, c + 1.35, c + 1.55).toFixed(2);
+    typeIn($("b2t"), "Sure. First, let me verify it's you.", t, c + 1.45, c + 2.1);
+    var j = prog(t, c + 2.2, c + 2.5);
+    $("b3").style.opacity = j.toFixed(2);
+    $("b3").style.transform = "scale(" + (1.4 - 0.4 * j).toFixed(3) + ") rotate(" + (-6 * j).toFixed(1) + "deg)";
+    // Statement: second line follows the first.
+    var st = $("s4").querySelectorAll(".big");
+    st[1].style.opacity = prog(t, START.s4 + 0.45, START.s4 + 0.8).toFixed(2);
+    // Project shots slide in from the right.
+    ["p1", "p2", "p3", "p4", "p5"].forEach(function (id) {
+      var v = prog(t, START[id] + 0.1, START[id] + 0.6);
+      var img = document.querySelector("#" + id + " .shot");
+      img.style.transform = "translateX(" + ((1 - v) * 80).toFixed(1) + "px) scale(" + (0.94 + 0.06 * v).toFixed(3) + ")";
+      img.style.opacity = v.toFixed(2);
+    });
+    drawGlyph(t);
+  };
+  window.render(0);
+</script>
+</body>
+</html>
