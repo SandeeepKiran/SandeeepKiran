@@ -114,7 +114,7 @@
   </picture>
 </p>
 
-<details>
+<details open>
 <summary><picture><source media="(prefers-color-scheme: dark)" srcset="assets/icons/more-dark.png"><img src="assets/icons/more-light.png" height="24" align="absmiddle" alt=""></picture> <b>More about me</b></summary>
 <br>
 
