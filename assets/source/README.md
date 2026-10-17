@@ -95,8 +95,12 @@ Portfolio = Geo, Resume = Electro.
 Fireflies: the page is cut into nine equal scroll segments. The first is always Anemo; the other
 eight get a new random order on every visit (`OTHERS` in `tools/build_preview_branch.py`). Changing
 segment cross-fades over 1.6 s in time (not tied to scroll speed), so the change is smooth but each
-element stays its own colour. A "Fireflies" switch at the top right turns them off (the plain page
-from before) and the choice is remembered in that browser.
+element stays its own colour.
+
+Two secret switches sit in the top-right corner, invisible until hovered: **Light / Dark** (also
+rewrites the `<picture>` media rules so the README's images follow it) and **Fireflies** (off = the
+card stays put and page + card share one solid colour). Both choices are remembered in that browser.
+Light mode is a warm cream, `#f6f0e4`, not pure white.
 
 Recolour recipes (ffmpeg, decode with `-c:v libvpx` and add `format=yuv420p` first, or the encoder
 fails on the source's alpha channel):

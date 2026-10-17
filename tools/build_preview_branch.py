@@ -41,11 +41,18 @@ page = f"""<!doctype html>
 <meta name="description" content="Sandeep Kiran: QA Manager at SoundHound AI. GenAI and conversational voice AI, LLM evaluation, AI agents.">
 <link rel="icon" type="image/png" href="assets/site/favicon.png">
 <link rel="apple-touch-icon" href="assets/site/apple-touch-icon.png">
+<script>  // apply a saved Light/Dark choice before the page paints, so a refresh never flashes the other theme
+  try {{ const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; }} catch (e) {{}}
+</script>
 <style>
-  :root {{ --bg:#ffffff; --text:#1f2328; --muted:#59636e; --line:#d1d9e0; --link:#0969da; --tip:#1a7f37;
-           --panel:rgba(255,255,255,.93); }}
-  @media (prefers-color-scheme: dark) {{ :root {{ --bg:#0d1117; --text:#f0f6fc; --muted:#9198a1; --line:#3d444d; --link:#4493f8; --tip:#3fb950;
-           --panel:rgba(13,17,23,.74); }} }}
+  /* Light = a soft warm cream (pure white was too harsh); dark = GitHub's near-black.
+     The theme follows the system unless the Light/Dark switch picked one (html[data-theme]). */
+  :root {{ --bg:#f6f0e4; --text:#2b2722; --muted:#6b6255; --line:#e2d8c5; --link:#0b63c7; --tip:#1a7f37;
+           --panel:rgba(246,240,228,.93); color-scheme:light; }}
+  @media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ --bg:#0d1117; --text:#f0f6fc; --muted:#9198a1; --line:#3d444d;
+           --link:#4493f8; --tip:#3fb950; --panel:rgba(13,17,23,.74); color-scheme:dark; }} }}
+  :root[data-theme="dark"] {{ --bg:#0d1117; --text:#f0f6fc; --muted:#9198a1; --line:#3d444d;
+           --link:#4493f8; --tip:#3fb950; --panel:rgba(13,17,23,.74); color-scheme:dark; }}
 
   /* HoYoWiki's cursor; it only sets it on <body>, so links fall back to the system hand.
      Here clickable things get a matching lit-up version instead. */
@@ -69,21 +76,30 @@ page = f"""<!doctype html>
   #fireflies video {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.6s ease-in-out; }}
   #fireflies::after {{ content:""; position:absolute; inset:0; background:radial-gradient(50% 50%, transparent 27%, rgba(0,0,0,.125) 100%); z-index:100000; }}
 
-  /* Fireflies switched off: the plain page from before (GitHub's own background, no panel). */
+  /* Fireflies switched off: the card stays exactly where it is (no layout jump); only the colours
+     change, so the page and the card share one solid background. The shadow stays. */
   html.no-fireflies #fireflies {{ display:none; }}
-  html.no-fireflies main {{ margin:0 auto; background:none; box-shadow:none; backdrop-filter:none; border-radius:0; }}
+  html.no-fireflies main {{ background:var(--bg); backdrop-filter:none; }}
 
-  /* The on/off switch, top right. */
-  #fx-toggle {{ position:fixed; top:12px; right:12px; z-index:10; display:flex; align-items:center; gap:8px;
-          padding:6px 12px 6px 8px; border-radius:999px; border:1px solid rgba(153,246,228,.45);
-          background:rgba(13,17,23,.72); color:#d5ece8; font:600 12px/1 "Segoe UI",system-ui,sans-serif; letter-spacing:.04em;
+  /* The secret switches, top right: invisible until the corner is hovered (or focused by keyboard). */
+  #switches {{ position:fixed; top:0; right:0; z-index:10; display:flex; gap:8px; padding:12px;
+          opacity:0; transition:opacity .45s ease; }}
+  #switches:hover, #switches:focus-within {{ opacity:1; }}
+  .pill {{ display:flex; align-items:center; gap:8px; padding:6px 12px 6px 8px; border-radius:999px;
+          border:1px solid rgba(153,246,228,.45); background:rgba(13,17,23,.72); color:#d5ece8;
+          font:600 12px/1 "Segoe UI",system-ui,sans-serif; letter-spacing:.04em;
           backdrop-filter:blur(6px); box-shadow:0 4px 14px rgba(0,0,0,.35); }}
-  #fx-toggle .knob {{ width:26px; height:14px; border-radius:999px; background:rgba(255,255,255,.18); position:relative; transition:background .25s; }}
-  #fx-toggle .knob::after {{ content:""; position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%;
+  .pill:hover {{ border-color:#99f6e4; }}
+  .pill .knob {{ width:26px; height:14px; border-radius:999px; background:rgba(255,255,255,.18); position:relative; transition:background .25s; }}
+  .pill .knob::after {{ content:""; position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%;
           background:#a7d3cc; transition:transform .25s, background .25s; }}
-  #fx-toggle[aria-pressed="true"] .knob {{ background:rgba(51,215,160,.55); }}
-  #fx-toggle[aria-pressed="true"] .knob::after {{ transform:translateX(12px); background:#fff; box-shadow:0 0 8px #99f6e4; }}
-  #fx-toggle:hover {{ border-color:#99f6e4; }}
+  .pill[aria-pressed="true"] .knob {{ background:rgba(51,215,160,.55); }}
+  .pill[aria-pressed="true"] .knob::after {{ transform:translateX(12px); background:#fff; box-shadow:0 0 8px #99f6e4; }}
+  /* Light/Dark pill: knob left = light (warm sun), knob right = dark (moon). */
+  #theme-toggle .knob {{ background:rgba(250,200,90,.45); }}
+  #theme-toggle .knob::after {{ background:#ffd77a; box-shadow:0 0 8px #ffd77a; }}
+  #theme-toggle[aria-pressed="true"] .knob {{ background:rgba(120,140,220,.45); }}
+  #theme-toggle[aria-pressed="true"] .knob::after {{ background:#e8ecff; box-shadow:0 0 8px #aab8ff; }}
 
   /* Contact buttons: an element seal pops up behind the button on hover, like a HoYoWiki talent. */
   a.seal {{ position:relative; display:inline-block; margin:6px 5px; isolation:isolate; transition:transform .2s; }}
@@ -109,7 +125,10 @@ page = f"""<!doctype html>
 </head>
 <body>
 <div id="fireflies" aria-hidden="true"></div>
-<button id="fx-toggle" type="button" aria-pressed="true" title="Turn the firefly background on or off"><span class="knob"></span><span class="label">Fireflies</span></button>
+<div id="switches">
+  <button id="theme-toggle" class="pill" type="button" aria-pressed="false" title="Switch between light and dark"><span class="knob"></span><span class="label">Light</span></button>
+  <button id="fx-toggle" class="pill" type="button" aria-pressed="true" title="Turn the firefly background on or off"><span class="knob"></span><span class="label">Fireflies</span></button>
+</div>
 <main>
 {html}
 </main>
@@ -174,6 +193,26 @@ function setOn(value) {{
 }}
 
 toggle.addEventListener("click", () => setOn(!on));
+
+// Light/Dark switch. The README's images choose light or dark with <picture><source media="(prefers-color-scheme: dark)">,
+// which CSS cannot override, so a forced theme rewrites those media rules ("all" = always dark, "not all" = never).
+const themeToggle = document.getElementById("theme-toggle");
+const systemDark = matchMedia("(prefers-color-scheme: dark)");
+const darkSources = [...document.querySelectorAll('picture source[media*="prefers-color-scheme: dark"]')];
+function applyTheme() {{
+  const forced = root.dataset.theme;
+  const dark = forced ? forced === "dark" : systemDark.matches;
+  darkSources.forEach(s => s.media = forced ? (dark ? "all" : "not all") : "(prefers-color-scheme: dark)");
+  themeToggle.setAttribute("aria-pressed", dark);
+  themeToggle.querySelector(".label").textContent = dark ? "Dark" : "Light";
+}}
+themeToggle.addEventListener("click", () => {{
+  root.dataset.theme = themeToggle.getAttribute("aria-pressed") === "true" ? "light" : "dark";
+  try {{ localStorage.setItem("theme", root.dataset.theme); }} catch (e) {{}}
+  applyTheme();
+}});
+systemDark.addEventListener("change", applyTheme);
+applyTheme();
 addEventListener("scroll", () => requestAnimationFrame(update), {{ passive: true }});
 addEventListener("resize", update);
 setOn(on);
