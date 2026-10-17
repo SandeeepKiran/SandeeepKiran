@@ -392,63 +392,40 @@ def stats_card(p, s):
 
 
 def burst_seal(p, cx, cy, r):
-    """The glowing seal behind Albedo in his splash art (his burst, Rite of Progeniture: Tectonic Tide),
-    redrawn from the art: a double gold ring; three long diamonds (each with a smaller diamond inside)
-    and three leaf pairs straddling the ring, alternating; and three curved spokes that swirl from
-    the leaf pairs into the centre like a triskelion. Orange glow, white-hot core lines, slow turn."""
-    R = r * 0.62                        # main ring radius; the diamonds and leaves reach out to ~1.6R
-    if p["theme"] == "dark":
-        outer_glow, line, core, glow_op = "#ff9a2e", "#ffc94a", "#fff1c4", (0.55, 0.9)
-    else:                                # on a light card a soft glow washes out, so lines go deeper
-        outer_glow, line, core, glow_op = "#ffb347", "#e08a00", "#ffe08a", (0.35, 0.6)
+    """The glowing seal from Albedo's burst (Rite of Progeniture: Tectonic Tide): a gold circle with
+    four long diamonds (each holding a smaller diamond) on the main axes, and pointed petal-blades
+    on the diagonals reaching in towards a bright centre. Turns slowly and pulses its glow."""
+    gold, glow = "#f2b632", "#ffd97a"
 
-    def pt(angle, radius):
+    def diamond(angle, centre_r, half_len, half_w):
         a = math.radians(angle)
-        return cx + radius * math.cos(a), cy + radius * math.sin(a)
+        ux, uy, vx, vy = math.cos(a), math.sin(a), -math.sin(a), math.cos(a)
+        mx, my = cx + centre_r * ux, cy + centre_r * uy
+        pts = [(mx + half_len * ux, my + half_len * uy), (mx + half_w * vx, my + half_w * vy),
+               (mx - half_len * ux, my - half_len * uy), (mx - half_w * vx, my - half_w * vy)]
+        return " ".join(f"{x:.1f},{y:.1f}" for x, y in pts)
 
-    def rhombus(angle, r_in, r_out, half_w):
-        (x1, y1), (x2, y2) = pt(angle, r_in), pt(angle, r_out)
-        mx, my = (x1 + x2) / 2, (y1 + y2) / 2
+    def blade(angle):
         a = math.radians(angle)
-        vx, vy = -math.sin(a) * half_w, math.cos(a) * half_w
-        return f"M{x1:.1f} {y1:.1f} L{mx + vx:.1f} {my + vy:.1f} L{x2:.1f} {y2:.1f} L{mx - vx:.1f} {my - vy:.1f} Z"
+        ux, uy, vx, vy = math.cos(a), math.sin(a), -math.sin(a), math.cos(a)
+        tip_out, tip_in, w = r * 0.62, r * 0.18, r * 0.11
+        ox, oy, ix, iy = cx + tip_out * ux, cy + tip_out * uy, cx + tip_in * ux, cy + tip_in * uy
+        mx, my = cx + r * 0.42 * ux, cy + r * 0.42 * uy
+        return (f'M{ox:.1f} {oy:.1f} Q{mx + w * vx:.1f} {my + w * vy:.1f} {ix:.1f} {iy:.1f} '
+                f'Q{mx - w * vx:.1f} {my - w * vy:.1f} {ox:.1f} {oy:.1f} Z')
 
-    def lens(x1, y1, x2, y2, w):
-        mx, my, dx, dy = (x1 + x2) / 2, (y1 + y2) / 2, x2 - x1, y2 - y1
-        n = math.hypot(dx, dy) or 1
-        nx, ny = -dy / n * w, dx / n * w
-        return f"M{x1:.1f} {y1:.1f} Q{mx + nx:.1f} {my + ny:.1f} {x2:.1f} {y2:.1f} Q{mx - nx:.1f} {my - ny:.1f} {x1:.1f} {y1:.1f} Z"
-
-    paths = [f"M{cx + R:.1f} {cy} A{R:.1f} {R:.1f} 0 1 1 {cx - R:.1f} {cy} A{R:.1f} {R:.1f} 0 1 1 {cx + R:.1f} {cy} Z",
-             f"M{cx + R * .86:.1f} {cy} A{R * .86:.1f} {R * .86:.1f} 0 1 1 {cx - R * .86:.1f} {cy} "
-             f"A{R * .86:.1f} {R * .86:.1f} 0 1 1 {cx + R * .86:.1f} {cy} Z"]
-    for k in range(3):
-        d_ang = -125 + 120 * k          # diamonds
-        l_ang = d_ang + 58              # leaf pairs sit between them
-        paths.append(rhombus(d_ang, R * .62, R * 1.58, R * .27))
-        paths.append(rhombus(d_ang, R * .88, R * 1.32, R * .10))
-        (px, py) = pt(l_ang, R * .93)                         # the pinch where the two leaves meet
-        (ox, oy), (ix, iy) = pt(l_ang + 16, R * 1.62), pt(l_ang - 12, R * .5)
-        paths.append(lens(px, py, ox, oy, R * .2))
-        paths.append(lens(px, py, ix, iy, R * .17))
-        # Spoke: a tapered blade sweeping from the inner leaf tip into the centre (one swirl direction).
-        (q1x, q1y), (q2x, q2y) = pt(l_ang - 62, R * .48), pt(l_ang - 48, R * .30)
-        paths.append(f"M{ix:.1f} {iy:.1f} Q{q1x:.1f} {q1y:.1f} {cx:.1f} {cy:.1f} Q{q2x:.1f} {q2y:.1f} {ix:.1f} {iy:.1f} Z")
-    rings, shapes = " ".join(paths[:2]), " ".join(paths[2:])
-    d = rings + " " + shapes
-    turn = (f'<animateTransform attributeName="transform" type="rotate" from="0 {cx} {cy}" to="120 {cx} {cy}" '
-            f'dur="30s" repeatCount="indefinite"/>')
-    return (f'<defs><filter id="seal-glow" x="-60%" y="-60%" width="220%" height="220%">'
-            f'<feGaussianBlur stdDeviation="2.4"/></filter></defs>'
-            f'<g fill="none" stroke-linejoin="round" stroke-linecap="round">'
-            f'<path d="{d}" stroke="{outer_glow}" stroke-width="6" opacity="{glow_op[1]}" filter="url(#seal-glow)">'
-            f'<animate attributeName="opacity" values="{glow_op[0]};{glow_op[1]};{glow_op[0]}" dur="4s" repeatCount="indefinite"/></path>'
-            # Rings first; the diamonds and leaves are filled with the card colour so they sit on top
-            # of the rings and hide them, the way they do in the art.
-            f'<path d="{rings}" stroke="{line}" stroke-width="2.6"/><path d="{rings}" stroke="{core}" stroke-width="0.9"/>'
-            f'<path d="{shapes}" fill="{p["card"]}" fill-rule="nonzero" stroke="{line}" stroke-width="2.6"/>'
-            f'<path d="{shapes}" stroke="{core}" stroke-width="0.9"/>'
-            f'<circle cx="{cx}" cy="{cy}" r="{R * .08:.1f}" fill="{core}" stroke="none"/>{turn}</g>')
+    shapes = [f'<circle cx="{cx}" cy="{cy}" r="{r * 0.62:.1f}" fill="none" stroke-width="2.2"/>']
+    for ang in (-90, 0, 90, 180):
+        shapes.append(f'<polygon points="{diamond(ang, r * 0.62, r * 0.36, r * 0.13)}" fill="{p["card"]}" stroke-width="2"/>')
+        shapes.append(f'<polygon points="{diamond(ang, r * 0.62, r * 0.17, r * 0.06)}" fill="none" stroke-width="1.4"/>')
+    shapes += [f'<path d="{blade(ang)}" fill="none" stroke-width="1.6"/>' for ang in (-45, 45, 135, 225)]
+    shapes.append(f'<circle cx="{cx}" cy="{cy}" r="{r * 0.09:.1f}" fill="{glow}" stroke="none"/>')
+    turn = (f'<animateTransform attributeName="transform" type="rotate" from="0 {cx} {cy}" to="90 {cx} {cy}" '
+            f'dur="24s" repeatCount="indefinite"/>')
+    return (f'<defs><filter id="seal-glow" x="-50%" y="-50%" width="200%" height="200%">'
+            f'<feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>'
+            f'<g stroke="{gold}" filter="url(#seal-glow)">{"".join(shapes)}{turn}'
+            f'<animate attributeName="opacity" values="0.85;1;0.85" dur="4s" repeatCount="indefinite"/></g>')
 
 
 def activity_card(p, s):
