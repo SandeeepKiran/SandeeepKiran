@@ -10,7 +10,7 @@ PICKS = {  # README name -> source glyph
     "what-i-do": "venti-23-Talents-1-Skyward_Sonnet.png",
     "skills": "jean-27-Talents-2-Dandelion_Breeze.png",
     "ai": "ineffa-7852-Talents-1-Cleaning_Mode_Carrier_Frequency.png",
-    "ai-eval": "durin-9017-Talents-1-Binary_*.png",
+    "ai-eval": "nahida-2850-Talents-1-All_Schemes_to_Know.png",
     "testing": "chevreuse-4577-Talents-1-*.png",
     "tech": "aino-8397-Talents-2-*.png",
     "domains": "venti-23-Talents-2-Wind_s_Grand_Ode.png",
@@ -26,9 +26,10 @@ ELEMENT = {
     "pyro": {"dark": (239, 121, 56), "light": (206, 88, 24)},
     "hydro": {"dark": (76, 194, 241), "light": (22, 128, 186)},
     "geo": {"dark": (250, 182, 50), "light": (190, 132, 10)},
+    "dendro": {"dark": (165, 200, 59), "light": (98, 138, 18)},
 }
 CHAR_ELEMENT = {"what-i-do": "anemo", "skills": "anemo", "domains": "anemo", "ai": "electro", "stats": "electro",
-                "ai-eval": "pyro", "testing": "pyro", "tech": "hydro", "projects": "geo", "isotoma": "geo", "albedo-burst": "geo"}
+                "ai-eval": "dendro", "testing": "pyro", "tech": "hydro", "projects": "geo", "isotoma": "geo", "albedo-burst": "geo"}
 
 
 def find(pattern):

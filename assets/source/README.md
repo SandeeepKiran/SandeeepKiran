@@ -33,13 +33,14 @@ Genshin Impact art and icons belong to HoYoverse and are used here as non-commer
 | The Stats | Keqing | Stellar Restoration | Electro | Keqing is the hard worker who keeps count of results |
 | Banner ring | Albedo | Abiogenesis: Solar Isotoma | Geo | Albedo's flower seal makes a ring around the banner |
 | Portfolio button | — | Anemo element icon | Anemo | Matches the Anemo theme of the profile |
+| Resume button | Keqing | Starward Sword (Elemental Burst), white | Electro badge | Keqing is the hard worker; her burst is the "show what I can do" move |
 
 ### Skills section icons
 
 | Sub-heading | Character | Skill icon | Element tint | Why it fits |
 |---|---|---|---|---|
 | AI & LLMs | Ineffa | Cleaning Mode: Carrier Frequency | Electro | Ineffa is a robot housekeeper, Genshin's closest thing to an AI assistant |
-| AI Evaluation | Durin | Binary Form: Convergence and Division | Pyro | The skill switches between two forms, like comparing two answers when judging an AI |
+| AI Evaluation | Nahida | All Schemes to Know | Dendro | Nahida is the God of Wisdom; her skill reads and marks every target, like scoring every AI answer (picked by Sandeep 2026-10-17; was Durin) |
 | Testing | Chevreuse | Short-Range Rapid Interdiction Fire | Pyro | Chevreuse is a security officer who hunts down troublemakers, like finding bugs |
 | Tech & Tools | Aino | Precision Hydronic Cooler | Hydro | Aino is an inventor who builds gadgets |
 | Domains | Venti | Wind's Grand Ode | Anemo | Venti's Elemental Burst; matches the Anemo theme of the profile |
@@ -62,7 +63,37 @@ https://sg-wiki-api-static.hoyolab.com/hoyowiki/genshin/wapi/entry_page?entry_pa
 - In the response, find the `data.page.modules` entry named `Talents`. Its `components[0].data` is a
   JSON string; parse it, and `list[]` gives each talent's `title` and `icon_url` (list[0] is the
   Normal Attack, so the skill and burst follow it). Download the icon, then save it here as `<character>-<id>-Talents-<n>-<Skill_Name>.png`.
+- Some `icon_url`s contain Chinese characters (e.g. Keqing's); percent-encode the URL before downloading.
 - IDs used so far: Venti 23, Jean 27 (and 3192), Keqing 10, Albedo 47, Chevreuse 4577,
-  Ineffa 7852, Aino 8397, Durin 9017.
+  Ineffa 7852, Aino 8397, Durin 9017 (no longer shown), Nahida 2850.
 - Then add the pick to `PICKS` and `CHAR_ELEMENT` in `tools/make_icons.py` and run it to make the
   tinted light/dark versions in `assets/icons/`.
+
+## Website-only files (`assets/site/`)
+
+GitHub strips cursors, hover effects and video, so these only appear on the portfolio site that
+`tools/build_preview_branch.py` builds (the `MousyGenshinPreview` branch of Mousy-Portfolio).
+
+| File | Where it came from | Used for |
+|---|---|---|
+| `cursor.png` | HoYoWiki's own cursor, `wiki.hoyolab.com/_nuxt/img/genshin.69b4156.png` (set on `<body>` there) | The page cursor |
+| `cursor-pointer.png` | Made from `cursor.png`: golden glow + a sparkle at the tip (hotspot 4,4) | Links and buttons. HoYoWiki has no clickable version, so its links show the plain system hand |
+| `ring.svg` | HoYoWiki talent ring, the `svg.d-talent-keys-active` on a character page, recoloured white | Stencil for the contact-button hover seal; CSS paints it in each element's colour |
+| `favicon.png`, `apple-touch-icon.png` | `assets/icons/venti-blob.png`, padded to a square | The browser tab icon |
+| `bg/<element>.webm` | HoYoWiki character page background videos, `wiki.hoyolab.com/_nuxt/videos/bg_<element>.<hash>.webm`, unchanged | Firefly backgrounds for anemo, geo, electro, dendro, hydro, pyro, cryo |
+| `bg/nodkrai.webm`, `bg/abyss.webm` | Made by us: the cryo video in grey and lightened (Nod-Krai, white), the electro video in grey and darkened (Abyss, black). No such videos exist on HoYoWiki | The two made-up regions |
+| `bg/<element>.mp4` | The WebMs re-encoded at 1280×720 (H.264) | Backup for browsers that cannot play WebM |
+| `bg/<element>.jpg` | First frame of each video | Shown while a video loads, and instead of video when the visitor asks for reduced motion |
+
+Hover colours are HoYoWiki's exact values: ring = `.d-talent-keys-active.<element> path`, panel =
+`.entry-common-module.<element>` background. Email = Pyro, Telegram = Cryo, LinkedIn = Hydro,
+Portfolio = Geo, Resume = Electro.
+
+Firefly order down the page follows the Traveler's journey: Anemo (Mondstadt) → Geo (Liyue) →
+Electro (Inazuma) → Dendro (Sumeru) → Hydro (Fontaine) → Pyro (Natlan) → Nod-Krai → Cryo
+(Snezhnaya) → Abyss. It is the `ELEMENTS` list in `tools/build_preview_branch.py`.
+
+Recolour recipes (ffmpeg, decode with `-c:v libvpx` and add `format=yuv420p` first, or the encoder
+fails on the source's alpha channel):
+- Nod-Krai: `hue=s=0,curves=all='0/0.50 0.15/0.66 0.35/0.80 1/1'` on `bg_cryo`
+- Abyss: `hue=s=0,curves=all='0/0 0.12/0.05 0.35/0.2 0.6/0.6 1/1'` on `bg_electro`
