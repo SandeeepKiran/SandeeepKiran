@@ -21,6 +21,48 @@ Genshin Impact art and icons belong to HoYoverse and are used here as non-commer
 | `mondstadt-city.jpg` | military.com article image (Mondstadt city) | Brag video background |
 | `genshin-icons/` | HoYoLAB wiki API, character talent icons (grey originals) | Section icons, tinted to their element colours by `make_icons` (see the CHANGELOG in Mousy-Portfolio) |
 
-Icon picks: Venti (What I do, Domains), Jean (Skills), Ineffa (AI & LLMs), Durin (AI Evaluation),
-Chevreuse (Testing), Aino (Tech & Tools), Albedo burst (Projects) and Solar Isotoma (banner ring),
-Keqing (The Stats), Anemo element (Portfolio button).
+## Icon picks
+
+### Header icons
+
+| Heading | Character | Skill icon | Element tint | Why it fits |
+|---|---|---|---|---|
+| What I do | Venti | Skyward Sonnet | Anemo | Venti is the bard, the voice that introduces the profile; Anemo is its theme |
+| Skills | Jean | Dandelion Breeze | Anemo | Jean is the Acting Grand Master, the all-rounder who holds everything together |
+| Projects | Albedo | Rite of Progeniture: Tectonic Tide | Geo | Albedo is the alchemist who creates things, like the projects |
+| The Stats | Keqing | Stellar Restoration | Electro | Keqing is the hard worker who keeps count of results |
+| Banner ring | Albedo | Abiogenesis: Solar Isotoma | Geo | Albedo's flower seal makes a ring around the banner |
+| Portfolio button | — | Anemo element icon | Anemo | Matches the Anemo theme of the profile |
+
+### Skills section icons
+
+| Sub-heading | Character | Skill icon | Element tint | Why it fits |
+|---|---|---|---|---|
+| AI & LLMs | Ineffa | Cleaning Mode: Carrier Frequency | Electro | Ineffa is a robot housekeeper, Genshin's closest thing to an AI assistant |
+| AI Evaluation | Durin | Binary Form: Convergence and Division | Pyro | The skill switches between two forms, like comparing two answers when judging an AI |
+| Testing | Chevreuse | Short-Range Rapid Interdiction Fire | Pyro | Chevreuse is a security officer who hunts down troublemakers, like finding bugs |
+| Tech & Tools | Aino | Precision Hydronic Cooler | Hydro | Aino is an inventor who builds gadgets |
+| Domains | Venti | Wind's Grand Ode | Anemo | Venti's Elemental Burst; matches the Anemo theme of the profile |
+
+The "why it fits" reasons were written down after the picks were made (2026-10-17), so they are a
+best reconstruction, not notes from the moment of picking.
+
+## Getting more icons (HoYoLAB wiki API)
+
+The grey skill icons in `genshin-icons/` come from the public JSON endpoint that the HoYoWiki
+website itself uses. No login or key is needed:
+
+```
+https://sg-wiki-api-static.hoyolab.com/hoyowiki/genshin/wapi/entry_page?entry_page_id=<id>
+```
+
+- `<id>` is the number at the end of the character's HoYoWiki page address,
+  e.g. `wiki.hoyolab.com/pc/genshin/entry/23` → Venti = `23`.
+- Send the header `x-rpc-language: en-us` to get English names.
+- In the response, find the `data.page.modules` entry named `Talents`. Its `components[0].data` is a
+  JSON string; parse it, and `list[]` gives each talent's `title` and `icon_url` (list[0] is the
+  Normal Attack, so the skill and burst follow it). Download the icon, then save it here as `<character>-<id>-Talents-<n>-<Skill_Name>.png`.
+- IDs used so far: Venti 23, Jean 27 (and 3192), Keqing 10, Albedo 47, Chevreuse 4577,
+  Ineffa 7852, Aino 8397, Durin 9017.
+- Then add the pick to `PICKS` and `CHAR_ELEMENT` in `tools/make_icons.py` and run it to make the
+  tinted light/dark versions in `assets/icons/`.
