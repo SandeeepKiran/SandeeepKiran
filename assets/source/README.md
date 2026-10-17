@@ -20,6 +20,9 @@ Genshin Impact art and icons belong to HoYoverse and are used here as non-commer
 | `albedo-splash.png` | HoYoLAB wiki, Albedo avatar art | Reference for Albedo's burst seal |
 | `mondstadt-city.jpg` | military.com article image (Mondstadt city) | Brag video background |
 | `genshin-icons/` | HoYoLAB wiki API, character talent icons (grey originals) | Section icons, tinted to their element colours by `make_icons` (see the CHANGELOG in Mousy-Portfolio) |
+| `hoyowiki-talent-ring.svg` | HoYoWiki talent ring, as drawn on a character page (Electro colour) | Original of the contact-button hover seal (`assets/site/ring.svg`) |
+| `hoyowiki-cursor.png` | HoYoWiki's cursor, `wiki.hoyolab.com/_nuxt/img/genshin.69b4156.png` | Original of `assets/site/cursor.png` |
+| `../icons/logos/*.svg` | Simple Icons v11.0.0 (`cdn.jsdelivr.net/npm/simple-icons@11.0.0/icons/`): `openai`, `microsoftexcel` | Logos on the ChatGPT, Codex and Excel pills. shields.io no longer has them, so `tools/pills.py` embeds them |
 
 ## Icon picks
 
@@ -89,9 +92,11 @@ Hover colours are HoYoWiki's exact values: ring = `.d-talent-keys-active.<elemen
 `.entry-common-module.<element>` background. Email = Pyro, Telegram = Cryo, LinkedIn = Hydro,
 Portfolio = Geo, Resume = Electro.
 
-Firefly order down the page follows the Traveler's journey: Anemo (Mondstadt) → Geo (Liyue) →
-Electro (Inazuma) → Dendro (Sumeru) → Hydro (Fontaine) → Pyro (Natlan) → Nod-Krai → Cryo
-(Snezhnaya) → Abyss. It is the `ELEMENTS` list in `tools/build_preview_branch.py`.
+Fireflies: the page is cut into nine equal scroll segments. The first is always Anemo; the other
+eight get a new random order on every visit (`OTHERS` in `tools/build_preview_branch.py`). Changing
+segment cross-fades over 1.6 s in time (not tied to scroll speed), so the change is smooth but each
+element stays its own colour. A "Fireflies" switch at the top right turns them off (the plain page
+from before) and the choice is remembered in that browser.
 
 Recolour recipes (ffmpeg, decode with `-c:v libvpx` and add `format=yuv420p` first, or the encoder
 fails on the source's alpha channel):

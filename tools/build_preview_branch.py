@@ -28,8 +28,7 @@ for href, element in CONTACT_ELEMENT.items():
         sys.exit(f"contact button not found: {href}")
 
 shutil.copytree(cards, out / "cards")
-shutil.copytree(profile / "assets", out / "assets")
-shutil.rmtree(out / "assets" / "source")   # originals for the repo, not needed by the page
+shutil.copytree(profile / "assets", out / "assets")   # includes assets/source: Sandeep keeps every original image here too
 (out / "docs" / "brag-files").mkdir(parents=True)
 shutil.copy(profile / "docs" / "brag-files" / "brag-all.gif", out / "docs" / "brag-files" / "brag-all.gif")
 
@@ -67,8 +66,24 @@ page = f"""<!doctype html>
 
   /* Firefly backgrounds: HoYoWiki's own element videos, cross-faded as you scroll. */
   #fireflies {{ position:fixed; inset:0; z-index:-1; background:#0c1626; overflow:hidden; }}
-  #fireflies video {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; }}
-  #fireflies::after {{ content:""; position:absolute; inset:0; background:radial-gradient(50% 50%, transparent 27%, rgba(0,0,0,.125) 100%); }}
+  #fireflies video {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.6s ease-in-out; }}
+  #fireflies::after {{ content:""; position:absolute; inset:0; background:radial-gradient(50% 50%, transparent 27%, rgba(0,0,0,.125) 100%); z-index:100000; }}
+
+  /* Fireflies switched off: the plain page from before (GitHub's own background, no panel). */
+  html.no-fireflies #fireflies {{ display:none; }}
+  html.no-fireflies main {{ margin:0 auto; background:none; box-shadow:none; backdrop-filter:none; border-radius:0; }}
+
+  /* The on/off switch, top right. */
+  #fx-toggle {{ position:fixed; top:12px; right:12px; z-index:10; display:flex; align-items:center; gap:8px;
+          padding:6px 12px 6px 8px; border-radius:999px; border:1px solid rgba(153,246,228,.45);
+          background:rgba(13,17,23,.72); color:#d5ece8; font:600 12px/1 "Segoe UI",system-ui,sans-serif; letter-spacing:.04em;
+          backdrop-filter:blur(6px); box-shadow:0 4px 14px rgba(0,0,0,.35); }}
+  #fx-toggle .knob {{ width:26px; height:14px; border-radius:999px; background:rgba(255,255,255,.18); position:relative; transition:background .25s; }}
+  #fx-toggle .knob::after {{ content:""; position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%;
+          background:#a7d3cc; transition:transform .25s, background .25s; }}
+  #fx-toggle[aria-pressed="true"] .knob {{ background:rgba(51,215,160,.55); }}
+  #fx-toggle[aria-pressed="true"] .knob::after {{ transform:translateX(12px); background:#fff; box-shadow:0 0 8px #99f6e4; }}
+  #fx-toggle:hover {{ border-color:#99f6e4; }}
 
   /* Contact buttons: an element seal pops up behind the button on hover, like a HoYoWiki talent. */
   a.seal {{ position:relative; display:inline-block; margin:6px 5px; isolation:isolate; transition:transform .2s; }}
@@ -89,46 +104,79 @@ page = f"""<!doctype html>
   a.seal.geo     {{ --seal:rgba(255,176,13,.85);  --seal-bg:rgb(61,48,21); }}
   a.seal.electro {{ --seal:rgba(204,128,255,.85); --seal-bg:rgb(42,26,103); }}
 
-  @media (prefers-reduced-motion: reduce) {{ a.seal, a.seal::before, a.seal::after {{ transition:none; }} }}
+  @media (prefers-reduced-motion: reduce) {{ a.seal, a.seal::before, a.seal::after, #fireflies video {{ transition:none; }} }}
 </style>
 </head>
 <body>
 <div id="fireflies" aria-hidden="true"></div>
+<button id="fx-toggle" type="button" aria-pressed="true" title="Turn the firefly background on or off"><span class="knob"></span><span class="label">Fireflies</span></button>
 <main>
 {html}
 </main>
 <script>
-// Element order top to bottom follows the Traveler's journey: Mondstadt, Liyue, Inazuma, Sumeru,
-// Fontaine, Natlan, Nod-Krai, Snezhnaya, then the Abyss at the very end. Edit this list to reorder.
-const ELEMENTS = ["anemo", "geo", "electro", "dendro", "hydro", "pyro", "nodkrai", "cryo", "abyss"];
+// The page is cut into equal scroll segments, one element each. Anemo (Mondstadt, the profile's
+// theme) is always first; the other eight come in a new random order on every visit.
+const OTHERS = ["geo", "electro", "dendro", "hydro", "pyro", "nodkrai", "cryo", "abyss"];
+for (let i = OTHERS.length - 1; i > 0; i--) {{ const j = Math.floor(Math.random() * (i + 1)); [OTHERS[i], OTHERS[j]] = [OTHERS[j], OTHERS[i]]; }}
+const ELEMENTS = ["anemo", ...OTHERS];
+const FADE_MS = 1600;   // matches the CSS opacity transition on #fireflies video
+
 const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const root = document.documentElement;
 const box = document.getElementById("fireflies");
-const layers = ELEMENTS.map((name, i) => {{
+const toggle = document.getElementById("fx-toggle");
+const layers = ELEMENTS.map(name => {{
   const v = document.createElement("video");
   Object.assign(v, {{ muted: true, loop: true, playsInline: true, preload: "none", poster: `assets/site/bg/${{name}}.jpg` }});
-  v.style.zIndex = i;   // the next element fades in on top of the current one
   v.innerHTML = `<source src="assets/site/bg/${{name}}.webm" type="video/webm"><source src="assets/site/bg/${{name}}.mp4" type="video/mp4">`;
   box.appendChild(v);
   return v;
 }});
 
-function update() {{
-  const room = document.documentElement.scrollHeight - innerHeight;
-  const t = room > 0 ? Math.min(Math.max(scrollY / room, 0), 1) * (ELEMENTS.length - 1) : 0;
-  const i = Math.min(Math.floor(t), ELEMENTS.length - 2);
-  const f = t - i;
-  const blend = Math.min(Math.max((f - 0.35) / 0.3, 0), 1);   // hold each colour, then fade over the middle 30%
-  layers.forEach((v, k) => {{
-    const o = k === i ? (blend < 1 ? 1 : 0) : k === i + 1 ? blend * blend * (3 - 2 * blend) : 0;   // fully covered = paused
-    v.style.opacity = o;
-    if (o > 0 && !still) {{ if (v.paused) v.play().catch(() => {{}}); }}
-    else if (!v.paused) v.pause();
-  }});
+let on = true, current = -1, topZ = 0, tidy;
+try {{ on = localStorage.getItem("fireflies") !== "off"; }} catch (e) {{}}
+
+function segment() {{
+  const room = root.scrollHeight - innerHeight;
+  const p = room > 0 ? Math.min(Math.max(scrollY / room, 0), 1) : 0;
+  return Math.min(Math.floor(p * ELEMENTS.length), ELEMENTS.length - 1);
 }}
+
+// Cross-fade in time, not with the scroll position: the new element fades in over the old one,
+// so a fast scroll still gets the full smooth fade and each element stays its own distinct colour.
+function show(i, instant) {{
+  if (i === current) return;
+  const v = layers[i];
+  if (instant) v.style.transition = "none";
+  v.style.zIndex = ++topZ;
+  v.style.opacity = 1;
+  if (instant) {{ v.offsetHeight; v.style.transition = ""; }}
+  if (!still) v.play().catch(() => {{}});
+  for (const k of [i - 1, i + 1]) if (layers[k]) layers[k].preload = "auto";   // neighbours ready before they are needed
+  current = i;
+  clearTimeout(tidy);
+  tidy = setTimeout(() => layers.forEach((l, k) => {{
+    if (k === current) return;
+    l.style.transition = "none"; l.style.opacity = 0; l.offsetHeight; l.style.transition = "";
+    l.pause();
+  }}), instant ? 0 : FADE_MS + 100);
+}}
+
+function update() {{ if (on) show(segment(), current === -1); }}
+
+function setOn(value) {{
+  on = value;
+  root.classList.toggle("no-fireflies", !on);
+  toggle.setAttribute("aria-pressed", on);
+  try {{ localStorage.setItem("fireflies", on ? "on" : "off"); }} catch (e) {{}}
+  if (on) {{ current = -1; update(); }}
+  else layers.forEach(l => l.pause());
+}}
+
+toggle.addEventListener("click", () => setOn(!on));
 addEventListener("scroll", () => requestAnimationFrame(update), {{ passive: true }});
 addEventListener("resize", update);
-addEventListener("load", update);
-update();
+setOn(on);
 </script>
 </body>
 </html>

@@ -1,9 +1,9 @@
 """Builds the skill-pill markdown (shields.io for-the-badge) and checks each logo slug really renders."""
-import sys, urllib.parse, urllib.request, concurrent.futures as cf
+import base64, pathlib, sys, urllib.parse, urllib.request, concurrent.futures as cf
 
 GROUPS = [
     ("ai|AI & LLMs", "134e4a", "99f6e4", [
-        ("Claude Code", "claude"), ("Claude API", "anthropic"), ("ChatGPT", None), ("Codex", None),
+        ("Claude Code", "claude"), ("Claude API", "anthropic"), ("ChatGPT", "file:openai"), ("Codex", "file:openai"),
         ("Gemini", "googlegemini"), ("Cursor", "cursor"), ("MCP", "modelcontextprotocol"),
         ("Prompt Engineering", None), ("LLM Evaluation", None), ("Agentic Workflows", None)]),
     ("ai-eval|AI Evaluation", "b8892b", "ffffff", [
@@ -16,7 +16,7 @@ GROUPS = [
     ("tech|Tech & Tools", "335c81", "ffffff", [
         ("Python", "python"), ("TypeScript", "typescript"), ("Kotlin", "kotlin"), ("VBA", None),
         ("Next.js", "nextdotjs"), ("REST", None), ("Git", "git"), ("GitLab", "gitlab"),
-        ("CI/CD", "githubactions"), ("Jira", "jira"), ("Confluence", "confluence"), ("Excel", None),
+        ("CI/CD", "githubactions"), ("Jira", "jira"), ("Confluence", "confluence"), ("Excel", "file:microsoftexcel"),
         ("KPI & KRA Reporting", None)]),
     ("domains|Domains", "d9b25f", "134e4a", [
         ("Banking", None), ("Insurance", None), ("Healthcare", None), ("ITSD", None), ("E-commerce", None),
@@ -24,10 +24,19 @@ GROUPS = [
 ]
 
 
+LOGOS = pathlib.Path(__file__).resolve().parent.parent / "assets" / "icons" / "logos"
+
+
 def badge_url(text, color, logo_color, logo):
     label = text.replace("-", "--").replace("_", "__")
     url = f"https://img.shields.io/badge/{urllib.parse.quote(label, safe='')}-{color}?style=for-the-badge"
-    if logo:
+    if logo and logo.startswith("file:"):
+        # shields.io dropped some brand logos (OpenAI, Microsoft) when Simple Icons removed them,
+        # so those come from saved Simple Icons v11 SVGs, coloured here and embedded in the URL.
+        svg = (LOGOS / f"{logo[5:]}.svg").read_text(encoding="utf-8").replace("<path ", f'<path fill="#{logo_color}" ', 1)
+        data = "data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode()
+        url += "&logo=" + urllib.parse.quote(data, safe="")
+    elif logo:
         url += f"&logo={logo}&logoColor={logo_color}"
     return url
 
