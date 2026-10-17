@@ -50,7 +50,17 @@ SUN = ('<svg class="sun" viewBox="0 0 18 18"><defs>'
        '<path clip-path="url(#suninner)" fill="#fff" opacity=".18" d="M0 8.6c2.6-1.9 5.2-1.1 7.3.2s4.7 2.1 10.7-.4V18H0z"/></svg>')
 MOON = '<span class="moon"><i style="left:12px;top:4px;width:3px;height:3px"></i><i style="left:13.5px;top:10px;width:2.4px;height:2.4px"></i><i style="left:10px;top:13px;width:2px;height:2px"></i></span>'
 THEME_TRACK = f'<span class="track sky" aria-hidden="true"><span class="dusk"></span>{CLOUDS}{stars("#cfc8ff")}<span class="knob">{SUN}{MOON}</span></span>'
-FX_TRACK = f'<span class="track glow" aria-hidden="true">{stars("#effffa")}<span class="knob"></span></span>'
+MAPLE_PATH = ("M12 1.5L13.6 5.1 15.8 4 15.2 8.4 18.5 5.8 19.4 8 22 7.5 20.6 11.5 22.3 12.5 16.8 16.7 17.4 18.9 12.6 18 "
+              "12.6 22.5 11.4 22.5 11.4 18 6.6 18.9 7.2 16.7 1.7 12.5 3.4 11.5 2 7.5 4.6 8 5.5 5.8 8.8 8.4 8.2 4 10.4 5.1Z")
+MAPLE_KNOB = ('<svg class="maple" viewBox="0 0 24 24"><defs><linearGradient id="maplefill" x1="0" y1="0" x2="0" y2="1">'
+              '<stop offset="0" stop-color="#ec5a2e"/><stop offset="1" stop-color="#a9261b"/></linearGradient></defs>'
+              f'<path fill="url(#maplefill)" d="{MAPLE_PATH}"/>'
+              '<path d="M12 18V7M12 13l4-3.5M12 13L8 9.5" stroke="#8f2a17" stroke-width=".7" stroke-linecap="round" fill="none" opacity=".5"/></svg>')
+FALLING = ('<svg class="fall" style="left:{0}px;top:{1}px;width:{2}px;height:{2}px" viewBox="0 0 24 24">'
+           f'<path fill="{{3}}" d="{MAPLE_PATH}"/></svg>')
+LEAVES = '<span class="leaves">' + "".join(FALLING.format(x, y, s, c) for x, y, s, c in
+                                           [(27, 4, 7, "#ffd27a"), (37, 12, 8, "#fbe3b0"), (44, 3, 6, "#ffc15c")]) + "</span>"
+FX_TRACK = f'<span class="track glow" aria-hidden="true">{LEAVES}{stars("#effffa")}<span class="knob">{MAPLE_KNOB}</span></span>'
 
 page = f"""<!doctype html>
 <html lang="en">
@@ -153,11 +163,27 @@ page = f"""<!doctype html>
   #theme-toggle[aria-pressed="true"] .moon {{ opacity:1; -webkit-mask-position:-36.5px -32.5px; mask-position:-36.5px -32.5px; }}
   .moon i {{ position:absolute; border-radius:50%; background:rgba(150,170,215,.45); }}
 
-  /* Fireflies: the same track and knob, today's green fill when on, plus the mini stars. */
-  .glow {{ background:rgba(255,255,255,.18); }}
-  #fx-toggle[aria-pressed="true"] .glow {{ background:rgba(51,215,160,.55); box-shadow:inset 0 1px 3px rgba(0,0,0,.35), 0 0 10px rgba(51,215,160,.45); }}
-  .glow .knob {{ background:#a7d3cc; }}
-  #fx-toggle[aria-pressed="true"] .glow .knob {{ background:#fff; box-shadow:0 0 8px #99f6e4; }}
+  /* Fireflies on: green fill, mini stars and a glowing white orb.
+     Fireflies off: autumn — an amber-to-rust sky, swaying maple leaves and a maple-leaf knob. */
+  .glow {{ background:rgba(51,215,160,.55); }}
+  .glow::before {{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,#f4bd5c,#d0773a); transition:opacity .5s; }}
+  #fx-toggle[aria-pressed="true"] .glow::before {{ opacity:0; }}
+  .glow {{ box-shadow:inset 0 1px 3px rgba(0,0,0,.35), 0 0 10px rgba(226,110,50,.4); }}
+  #fx-toggle[aria-pressed="true"] .glow {{ box-shadow:inset 0 1px 3px rgba(0,0,0,.35), 0 0 10px rgba(51,215,160,.45); }}
+  .glow .knob::before {{ content:""; position:absolute; inset:0; border-radius:50%; background:#fff; opacity:0; transform:scale(.4);
+          transition:opacity .35s .15s, transform .45s .15s cubic-bezier(.34,1.56,.64,1); }}
+  #fx-toggle[aria-pressed="true"] .glow .knob {{ box-shadow:0 0 8px #99f6e4; }}
+  #fx-toggle[aria-pressed="true"] .glow .knob::before {{ opacity:1; transform:scale(1); }}
+  .maple {{ position:absolute; inset:-1px; width:20px; height:20px; filter:drop-shadow(0 1px 1.5px rgba(90,25,10,.5));
+          transition:opacity .35s, transform .55s; }}
+  #fx-toggle[aria-pressed="true"] .maple {{ opacity:0; transform:rotate(-140deg) scale(.4); }}
+  .leaves {{ inset:0; transition:opacity .4s; }}
+  .fall {{ position:absolute; animation:sway 3.2s ease-in-out infinite; transition:transform .6s ease-in; }}
+  .fall:nth-child(2) {{ animation-delay:-1.1s; animation-duration:3.8s; }}
+  .fall:nth-child(3) {{ animation-delay:-2.2s; animation-duration:2.9s; }}
+  @keyframes sway {{ 0%, 100% {{ transform:translate(0,0) rotate(-14deg); }} 50% {{ transform:translate(-2px,2px) rotate(16deg); }} }}
+  #fx-toggle[aria-pressed="true"] .leaves {{ opacity:0; }}
+  #fx-toggle[aria-pressed="true"] .fall {{ animation:none; transform:translateY(18px) rotate(60deg); }}
 
   @media (prefers-reduced-motion: reduce) {{ .track, .track * {{ transition:none !important; animation:none !important; }} }}
 
