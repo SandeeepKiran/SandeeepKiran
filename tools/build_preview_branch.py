@@ -32,6 +32,26 @@ shutil.copytree(profile / "assets", out / "assets")   # includes assets/source: 
 (out / "docs" / "brag-files").mkdir(parents=True)
 shutil.copy(profile / "docs" / "brag-files" / "brag-all.gif", out / "docs" / "brag-files" / "brag-all.gif")
 
+# Toggle artwork pieces (left, top, size in px inside the 52x24 track).
+STAR = ('<svg class="star" style="left:{0}px;top:{1}px;width:{2}px;height:{2}px" viewBox="0 0 24 24">'
+        '<path fill="{3}" d="M12 1.8l2.9 6.4 7 .7-5.3 4.7 1.5 6.9L12 16.9l-6.1 3.6 1.5-6.9L2.1 8.9l7-.7z"/></svg>')
+STAR_SPOTS = [(5, 4, 4), (11, 12, 8), (20, 4, 5), (27, 14, 4), (25, 2, 3), (3, 15, 3)]
+def stars(colour):
+    return '<span class="stars">' + "".join(STAR.format(x, y, s, colour) for x, y, s in STAR_SPOTS) + "</span>"
+CLOUD = ('<svg class="cloud" style="left:{0}px;top:{1}px;width:{2}px" viewBox="0 0 20 12">'
+         '<path fill="url(#cloudfill)" d="M5 12h11a4 4 0 0 0 .6-7.95A5 5 0 0 0 7.2 3.2 3.8 3.8 0 0 0 5 12z"/></svg>')
+CLOUDS = "".join(CLOUD.format(x, y, w) for x, y, w in [(25, 4, 12), (37, 2, 9), (32, 11, 14)])
+SUN = ('<svg class="sun" viewBox="0 0 18 18"><defs>'
+       '<linearGradient id="sunfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8be3d"/><stop offset="1" stop-color="#f3a35a"/></linearGradient>'
+       '<linearGradient id="sunrim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2654a"/><stop offset="1" stop-color="#f6b366"/></linearGradient>'
+       '<linearGradient id="cloudfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d4e6fb"/></linearGradient>'
+       '<clipPath id="suninner"><circle cx="9" cy="9" r="7.4"/></clipPath></defs>'
+       '<circle cx="9" cy="9" r="8.2" fill="url(#sunfill)" stroke="url(#sunrim)" stroke-width="1.6"/>'
+       '<path clip-path="url(#suninner)" fill="#fff" opacity=".18" d="M0 8.6c2.6-1.9 5.2-1.1 7.3.2s4.7 2.1 10.7-.4V18H0z"/></svg>')
+MOON = '<span class="moon"><i style="left:12px;top:4px;width:3px;height:3px"></i><i style="left:13.5px;top:10px;width:2.4px;height:2.4px"></i><i style="left:10px;top:13px;width:2px;height:2px"></i></span>'
+THEME_TRACK = f'<span class="track sky" aria-hidden="true"><span class="dusk"></span>{CLOUDS}{stars("#cfc8ff")}<span class="knob">{SUN}{MOON}</span></span>'
+FX_TRACK = f'<span class="track glow" aria-hidden="true">{stars("#effffa")}<span class="knob"></span></span>'
+
 page = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -84,22 +104,62 @@ page = f"""<!doctype html>
   /* The secret switches, top right: invisible until the corner is hovered (or focused by keyboard). */
   #switches {{ position:fixed; top:0; right:0; z-index:10; display:flex; gap:8px; padding:12px;
           opacity:0; transition:opacity .45s ease; }}
-  #switches:hover, #switches:focus-within {{ opacity:1; }}
+  #switches:hover, #switches:focus-within, #switches.intro {{ opacity:1; }}   /* .intro: shown for a few seconds on load */
   .pill {{ display:flex; align-items:center; gap:8px; padding:6px 12px 6px 8px; border-radius:999px;
           border:1px solid rgba(153,246,228,.45); background:rgba(13,17,23,.72); color:#d5ece8;
           font:600 12px/1 "Segoe UI",system-ui,sans-serif; letter-spacing:.04em;
           backdrop-filter:blur(6px); box-shadow:0 4px 14px rgba(0,0,0,.35); }}
   .pill:hover {{ border-color:#99f6e4; }}
-  .pill .knob {{ width:26px; height:14px; border-radius:999px; background:rgba(255,255,255,.18); position:relative; transition:background .25s; }}
-  .pill .knob::after {{ content:""; position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%;
-          background:#a7d3cc; transition:transform .25s, background .25s; }}
-  .pill[aria-pressed="true"] .knob {{ background:rgba(51,215,160,.55); }}
-  .pill[aria-pressed="true"] .knob::after {{ transform:translateX(12px); background:#fff; box-shadow:0 0 8px #99f6e4; }}
-  /* Light/Dark pill: knob left = light (warm sun), knob right = dark (moon). */
-  #theme-toggle .knob {{ background:rgba(250,200,90,.45); }}
-  #theme-toggle .knob::after {{ background:#ffd77a; box-shadow:0 0 8px #ffd77a; }}
-  #theme-toggle[aria-pressed="true"] .knob {{ background:rgba(120,140,220,.45); }}
-  #theme-toggle[aria-pressed="true"] .knob::after {{ background:#e8ecff; box-shadow:0 0 8px #aab8ff; }}
+
+  /* Toggle artwork, drawn in CSS/SVG: a little sky in a track. */
+  .track {{ position:relative; flex:none; width:52px; height:24px; border-radius:999px; overflow:hidden;
+          box-shadow:inset 0 1px 3px rgba(0,0,0,.35); transition:background .45s, box-shadow .45s; }}
+  .track > * {{ position:absolute; }}
+  .knob {{ top:3px; left:3px; width:18px; height:18px; border-radius:50%;
+          transition:transform .55s cubic-bezier(.65,-.25,.35,1.25), box-shadow .45s, background .45s; }}
+  .pill[aria-pressed="true"] .knob {{ transform:translateX(28px); }}
+  .stars {{ inset:0; }}
+  .star {{ position:absolute; opacity:0; transform:scale(.2); transition:opacity .3s, transform .45s cubic-bezier(.34,1.56,.64,1); }}
+  .pill[aria-pressed="true"] .star {{ opacity:1; transform:scale(1); animation:twinkle 2.6s ease-in-out infinite; }}
+  .pill[aria-pressed="true"] .star:nth-child(1) {{ transition-delay:.25s; animation-delay:.9s; }}
+  .pill[aria-pressed="true"] .star:nth-child(2) {{ transition-delay:.31s; animation-delay:1.7s; }}
+  .pill[aria-pressed="true"] .star:nth-child(3) {{ transition-delay:.37s; animation-delay:1.2s; }}
+  .pill[aria-pressed="true"] .star:nth-child(4) {{ transition-delay:.43s; animation-delay:2.1s; }}
+  .pill[aria-pressed="true"] .star:nth-child(5) {{ transition-delay:.49s; animation-delay:1.4s; }}
+  .pill[aria-pressed="true"] .star:nth-child(6) {{ transition-delay:.55s; animation-delay:.6s; }}
+  @keyframes twinkle {{ 50% {{ opacity:.45; transform:scale(.75); }} }}
+
+  /* Light/Dark: day sky + sun on the left, night sky + half moon on the right. */
+  .sky {{ background:linear-gradient(180deg,#3b82f6,#93d5ef); }}
+  .sky::before {{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,#4c12f2,#5d60f3); opacity:0; transition:opacity .6s; }}
+  #theme-toggle[aria-pressed="true"] .sky::before {{ opacity:1; }}
+  #theme-toggle[aria-pressed="true"] .sky {{ box-shadow:inset 0 1px 3px rgba(0,0,0,.35), 0 0 10px rgba(93,96,243,.55); }}
+  .dusk {{ inset:0; background:linear-gradient(180deg,#9c6fc0,#d89ca8); opacity:0; }}
+  .switching .dusk {{ animation:dusk .7s ease; }}
+  @keyframes dusk {{ 45% {{ opacity:.85; }} }}
+  .cloud {{ transition:transform .5s cubic-bezier(.5,0,.3,1), opacity .4s; }}
+  .cloud:nth-child(2) {{ transition-delay:.05s; }} .cloud:nth-child(3) {{ transition-delay:.1s; }}
+  #theme-toggle[aria-pressed="true"] .cloud {{ transform:translateY(16px); opacity:0; }}
+  .sky .knob {{ box-shadow:0 0 8px rgba(255,170,60,.75); }}
+  #theme-toggle[aria-pressed="true"] .sky .knob {{ box-shadow:0 0 9px rgba(205,220,255,.8); }}
+  .sun {{ position:absolute; inset:0; width:100%; height:100%; transition:opacity .35s, transform .55s; }}
+  #theme-toggle[aria-pressed="true"] .sun {{ opacity:0; transform:rotate(90deg) scale(.6); }}
+  /* The ")" half moon: a pale disc with a hidden shadow circle that slides in from the left. */
+  .moon {{ position:absolute; inset:0; border-radius:50%; opacity:0;
+          background:radial-gradient(circle at 70% 35%, #f6f9ff, #cbdaf4 75%);
+          -webkit-mask:radial-gradient(circle at center, transparent 8px, #000 8.5px) -54px -32.5px / 80px 80px no-repeat;
+          mask:radial-gradient(circle at center, transparent 8px, #000 8.5px) -54px -32.5px / 80px 80px no-repeat;
+          transition:opacity .3s .1s, -webkit-mask-position .6s .15s, mask-position .6s .15s; }}
+  #theme-toggle[aria-pressed="true"] .moon {{ opacity:1; -webkit-mask-position:-36.5px -32.5px; mask-position:-36.5px -32.5px; }}
+  .moon i {{ position:absolute; border-radius:50%; background:rgba(150,170,215,.45); }}
+
+  /* Fireflies: the same track and knob, today's green fill when on, plus the mini stars. */
+  .glow {{ background:rgba(255,255,255,.18); }}
+  #fx-toggle[aria-pressed="true"] .glow {{ background:rgba(51,215,160,.55); box-shadow:inset 0 1px 3px rgba(0,0,0,.35), 0 0 10px rgba(51,215,160,.45); }}
+  .glow .knob {{ background:#a7d3cc; }}
+  #fx-toggle[aria-pressed="true"] .glow .knob {{ background:#fff; box-shadow:0 0 8px #99f6e4; }}
+
+  @media (prefers-reduced-motion: reduce) {{ .track, .track * {{ transition:none !important; animation:none !important; }} }}
 
   /* Contact buttons: an element seal pops up behind the button on hover, like a HoYoWiki talent. */
   a.seal {{ position:relative; display:inline-block; margin:6px 5px; isolation:isolate; transition:transform .2s; }}
@@ -126,8 +186,8 @@ page = f"""<!doctype html>
 <body>
 <div id="fireflies" aria-hidden="true"></div>
 <div id="switches">
-  <button id="theme-toggle" class="pill" type="button" aria-pressed="false" title="Switch between light and dark"><span class="knob"></span><span class="label">Light</span></button>
-  <button id="fx-toggle" class="pill" type="button" aria-pressed="true" title="Turn the firefly background on or off"><span class="knob"></span><span class="label">Fireflies</span></button>
+  <button id="theme-toggle" class="pill" type="button" aria-pressed="false" title="Switch between light and dark">{THEME_TRACK}<span class="label">Light</span></button>
+  <button id="fx-toggle" class="pill" type="button" aria-pressed="true" title="Turn the firefly background on or off">{FX_TRACK}<span class="label">Fireflies</span></button>
 </div>
 <main>
 {html}
@@ -207,12 +267,18 @@ function applyTheme() {{
   themeToggle.querySelector(".label").textContent = dark ? "Dark" : "Light";
 }}
 themeToggle.addEventListener("click", () => {{
+  themeToggle.classList.remove("switching"); themeToggle.offsetWidth; themeToggle.classList.add("switching");   // replay the dusk flash
   root.dataset.theme = themeToggle.getAttribute("aria-pressed") === "true" ? "light" : "dark";
   try {{ localStorage.setItem("theme", root.dataset.theme); }} catch (e) {{}}
   applyTheme();
 }});
 systemDark.addEventListener("change", applyTheme);
 applyTheme();
+
+// The switches are a secret: show them for a few seconds on load, then fade out (hover the corner to bring them back).
+const switches = document.getElementById("switches");
+switches.classList.add("intro");
+setTimeout(() => switches.classList.remove("intro"), 3500);
 addEventListener("scroll", () => requestAnimationFrame(update), {{ passive: true }});
 addEventListener("resize", update);
 setOn(on);
