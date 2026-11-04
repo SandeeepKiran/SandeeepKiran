@@ -31,7 +31,7 @@
 > <img alt="Venti's card: Anemo, Bow, Mondstadt" src="assets/cards/tip-card.png" width="100%">
 
 <p align="center">
-  <img alt="A short animated tour: who I am, then my projects" src="docs/brag-files/brag-all.gif" width="100%">
+  <a href="brag-output-2026-11-04-224528/brag.mp4"><img alt="A short animated tour: who I am, my skill tree, then my projects" src="brag-output-2026-11-04-224528/brag.gif" width="100%"></a>
 </p>
 
 <picture>

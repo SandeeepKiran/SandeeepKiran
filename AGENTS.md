@@ -42,7 +42,8 @@ assets/cards/             tip-card.png, about-card.png
 assets/site/              Site-only files: cursors, ring.svg, favicon, bg/<element>.jpg/.mp4/.webm
 assets/source/            Original media + README.md (where each file came from, icon picks)
 assets/Sandeep-Kiran-Resume.pdf   Linked by the Resume button
-docs/brag-files/          Brag GIF/MP4 (brag-all.gif shows at the top of the profile) + source
+docs/brag-files/          Older brag GIF/MP4 + source (kept; no longer shown)
+brag-output-<timestamp>/   Newest brag: brag.gif shows at the top of the profile, links to brag.mp4. Never overwrite
 ```
 
 ## How to edit safely

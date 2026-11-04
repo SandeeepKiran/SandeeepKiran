@@ -1,0 +1,7 @@
+# Only dependencies, raw frame dumps and caches. Everything else here is the video source.
+node_modules/
+work/frames/
+work/stills/
+*.tmp
+__pycache__/
+.cache/
